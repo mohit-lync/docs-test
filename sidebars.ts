@@ -19,7 +19,12 @@ const sidebars: SidebarsConfig = {
   // But you can create a sidebar manually
   
   tutorialSidebar: [
-    // 'intro',
+
+    {
+      type: 'doc',
+      id: 'lync-introduction',
+      label:'👋 Introducing LYNC'
+    },
     {
       type: 'category',
       label: 'FUEL',
