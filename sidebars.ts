@@ -46,7 +46,7 @@ const sidebars: SidebarsConfig = {
                 id:'FUEL/wallet-apis/integration/integration'
               },
               items:[
-                'FUEL/wallet-apis/integration/feat/overview',
+                'FUEL/wallet-apis/integration/feat/fuel-overview',
                 'FUEL/wallet-apis/integration/feat/fuel-create-wallet',
                 'FUEL/wallet-apis/integration/feat/fuel-get-created-wallet',
 
