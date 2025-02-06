@@ -8,7 +8,7 @@ import tailwindPlugin from "./plugins/tailwind-config.cjs";
 const config: Config = {
   title: 'LYNC',
   tagline: 'Dinosaurs are cool',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/lync_ico.ico',
 
   // Set the production url of your site here
   url: 'https://your-docusaurus-site.example.com',
@@ -74,7 +74,7 @@ const config: Config = {
       title: 'LYNC World',
       logo: {
         alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        src: 'img/lync.avif',
       },
       items: [
         {

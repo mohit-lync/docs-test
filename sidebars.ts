@@ -19,14 +19,14 @@ const sidebars: SidebarsConfig = {
   // But you can create a sidebar manually
   
   tutorialSidebar: [
-    'intro',
+    // 'intro',
     {
       type: 'category',
       label: 'FUEL',
-      link:{
-        type: 'doc',
-        id:'FUEL/fuel'
-      },
+      // link:{
+      //   type: 'doc',
+      //   id:'FUEL/fuel'
+      // },
       items:[
         {
           type:'category',
@@ -46,8 +46,9 @@ const sidebars: SidebarsConfig = {
                 id:'FUEL/wallet-apis/integration/integration'
               },
               items:[
-                'FUEL/wallet-apis/integration/feat/fuel-overview',
+                'FUEL/wallet-apis/integration/feat/overview',
                 'FUEL/wallet-apis/integration/feat/fuel-create-wallet',
+                'FUEL/wallet-apis/integration/feat/fuel-get-created-wallet',
 
               ]
             }
@@ -58,11 +59,11 @@ const sidebars: SidebarsConfig = {
       ]
       
     },
-    {
-      type: 'category',
-      label: 'Tutorial',
-      items: ['tutorial-basics/create-a-document'],
-    },
+    // {
+    //   type: 'category',
+    //   label: 'Tutorial',
+    //   items: ['tutorial-basics/create-a-document'],
+    // },
   ],
   
 };
