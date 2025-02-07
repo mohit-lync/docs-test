@@ -35,7 +35,7 @@ const sidebars: SidebarsConfig = {
       items:[
         {
           type:'category',
-          label:'Wallet APIs',
+          label:'Wallet Creation and Transaction APIs',
           link:{
             type: 'doc',
             id:'FUEL/wallet-apis/fuel-wallet'
@@ -64,6 +64,30 @@ const sidebars: SidebarsConfig = {
       ]
       
     },
+    // {
+    //   type: 'category',
+    //   label: 'Aptos',
+    //   // link:{
+    //   //   type: 'doc',
+    //   //   id:'FUEL/fuel'
+    //   // },
+    //   items:[
+    //     {
+    //       type:'category',
+    //       label:'Wallet Creation and Transaction APIs',
+    //       link:{
+    //         type: 'doc',
+    //         id:'APTOS/wallet-apis/aptos-wallet'
+    //       },
+    //       items:[
+    //         'APTOS/wallet-apis/prerequisites/prerequisites',
+            
+    //       ],
+          
+    //     }
+    //   ]
+      
+    // },
     // {
     //   type: 'category',
     //   label: 'Tutorial',
