@@ -32,7 +32,7 @@ const config: Config = {
     locales: ['en'],
   },
 
-  plugins:[tailwindPlugin],
+  plugins:[tailwindPlugin,'my-loaders'],
 
   presets: [
     [

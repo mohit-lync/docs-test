@@ -13,6 +13,10 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "../ui/dialog"
+import { createGraphiQLFetcher } from "@graphiql/toolkit";
+import { QueryEditor } from '@graphiql/react';
+import { GraphiQL } from "graphiql";
+import "graphiql/graphiql.css";
   
 export interface CodeSample {
 	language: "node" | "csharp" | "python";
@@ -84,7 +88,25 @@ export const ApiReference = ({
 	const [xApiKey,setXApiKey] = useState<any>("");
 	const [network,setNetwork] = useState<any>("2");
 
+	const fetcher = createGraphiQLFetcher({
+		url: "https://indexer.hyperindex.xyz/e3caed3/v1/graphql",
+	});
 
+	const defaultQuery = `
+    query {
+		PoolState(
+			order_by: { timestamp: desc }
+		) {
+			asset_reserves
+			
+			real_eth_reserves
+			timestamp
+			virtual_eth_reserves
+			is_completed
+		}
+	}
+  `;
+	
 	const handleApiCall = async() =>{
 		try {
 			
@@ -117,6 +139,9 @@ export const ApiReference = ({
 	return (
 		<div className="w-full">
 			
+			<GraphiQL fetcher={fetcher}  defaultQuery={defaultQuery}>
+				<QueryEditor />
+			</GraphiQL>
 			<Dialog>
 				<DialogTrigger asChild>
 					<button 

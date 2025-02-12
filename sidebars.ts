@@ -26,6 +26,11 @@ const sidebars: SidebarsConfig = {
       label:'👋 Introducing LYNC'
     },
     {
+      type: 'doc',
+      id: 'graphql-example',
+      label:'GraphQL Example'
+    },
+    {
       type: 'category',
       label: 'FUEL',
       // link:{
