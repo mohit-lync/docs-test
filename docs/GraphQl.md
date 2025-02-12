@@ -10,6 +10,9 @@ hide_table_of_contents: true
 ### Fuelup ETH and FUEL Indexer Playground
 
 import {GraphQlExample} from '@site/src/components/GraphQl/GraphQlExample'
+import BrowserOnly from "@docusaurus/BrowserOnly";
 
-
-<GraphQlExample/>
+<BrowserOnly>
+    {() => <GraphQlExample/>}
+    
+</BrowserOnly>
