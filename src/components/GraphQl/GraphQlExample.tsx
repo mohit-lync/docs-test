@@ -35,9 +35,9 @@ export const GraphQlExample = () => {
     const ethFetcher = createGraphiQLFetcher({
 		url:  ETH_INDEXER_URL,
 	});
-    // const fuelFetcher = createGraphiQLFetcher({
-	// 	url:  FUEL_INDEXER_URL,
-	// });
+    const fuelFetcher = createGraphiQLFetcher({
+		url:  FUEL_INDEXER_URL,
+	});
     
     
     const handleNetworkChange = (e: any) => {
@@ -47,7 +47,7 @@ export const GraphQlExample = () => {
     }
     return (
         <div>
-            <GraphiQL fetcher={ethFetcher as any}  defaultQuery={defaultQuery} className="min-h-[70vh]">
+            <GraphiQL fetcher={playgroundNetwork === CHAINS.ETH ? ethFetcher as any : fuelFetcher as any}  defaultQuery={defaultQuery} className="min-h-[70vh]">
                 <GraphiQL.Logo>
                 
   
