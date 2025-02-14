@@ -86,7 +86,20 @@ const sidebars: SidebarsConfig = {
           },
           items:[
             'APTOS/wallet-apis/prerequisites/prerequisites',
-            
+            {
+              type:'category',
+              label:'Integration',
+              link:{
+                type: 'doc',
+                id:'APTOS/wallet-apis/integration/integration'
+              },
+              items:[
+                'APTOS/wallet-apis/integration/feat/aptos-overview',
+                'APTOS/wallet-apis/integration/feat/aptos-create-wallet',
+                'APTOS/wallet-apis/integration/feat/aptos-get-created-wallet',
+
+              ]
+            }
           ],
           
         }

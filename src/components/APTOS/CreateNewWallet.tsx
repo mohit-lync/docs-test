@@ -50,9 +50,9 @@ export interface FormValues {
 }
 
 
-const API_HOST = 'https://server-fuel-sdk.lync.world';
+const API_HOST = 'https://server-aptos-sdk.lync.world/api';
 const METHOD = 'POST';
-const PATH = '/wallet/get-wallet'
+const PATH = '/generate_wallet/create_wallet'
 const BODY = {
     "fields":[
         {
@@ -117,7 +117,6 @@ const createNewWallet = async () => {
             })
         });
 
-        
         const data = await response.json();
         console.log('Success:', data);
     } catch (error) {
@@ -128,24 +127,23 @@ const createNewWallet = async () => {
 }
 
 const RESPONSE = {
-    "status":"200",
+    "status":"201",
     "description": "Wallet creation response",
     "body":{
-        "success": true,
-        "status": 200,
-        "message": "User profile fetched successfully.",
-        "data": {
-          "id": "<ObjectId>",
-          "email": "<user email id>",
-          "accountAddress": "<account address of users newly created wallet>",
-          "publicKey": "<public key of users newly created wallet>",
-          "privateKey": "<private key of users newly created wallet>"
-        }
-    }
+		"success": true,
+		"status": 200,
+		"message": "Account data fetched successfully.",
+		"data": {
+		  "id": "<ObjectId>",
+		  "accountAddress": "<account address of users newly created wallet>",
+		  "publicKey": "<public key of users newly created wallet>",
+		  "privateKey": "<private key of users newly created wallet>"
+		}
+	}
 }
 
 
-export const GetAlreadyCreatedWallet = () => {
+export const CreateNewWallet = () => {
 	
 	
 	const [fetchedResponse,setFetchedResponse] = useState(null);
@@ -363,8 +361,8 @@ export const GetAlreadyCreatedWallet = () => {
 								
 							</div>
 							<button onClick={handleApiCall} disabled={fetchingResponse} 
-								className={cn(" flex items-center justify-center w-32 bg-[var(--ifm-color-primary)] border-none py-2 px-3 rounded-md text-xl cursor-pointer",
-								fetchingResponse && "brightness-50"
+							className={cn(" flex items-center justify-center w-32 bg-[var(--ifm-color-primary)] border-none py-2 px-3 rounded-md text-xl cursor-pointer",
+							fetchingResponse && "brightness-50"
 							)}>
 							{
 								fetchingResponse ?

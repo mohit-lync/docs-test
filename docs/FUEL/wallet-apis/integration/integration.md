@@ -16,3 +16,5 @@ This section explores the following functionalities that LYNC provides through i
 1. [API Overview](./feat/overview.md)
 2. [Create a new wallet](./feat/create-new-wallet.mdx)
 3. [Get already created wallet](./feat/get-already-created-wallet.mdx)
+
+In the upcoming sections, we will learn about all the above API functionalities in detail.

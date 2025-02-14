@@ -5,14 +5,6 @@ import ReactMarkdown from "react-markdown";
 import Tabs from "@theme/Tabs";
 import { RotateCw } from "lucide-react";
 import { cn } from "@site/src/lib/utils";
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "../ui/dialog"
 
   
 export interface CodeSample {
@@ -50,9 +42,9 @@ export interface FormValues {
 }
 
 
-const API_HOST = 'https://server-fuel-sdk.lync.world';
+const API_HOST = 'https://server-aptos-sdk.lync.world/api';
 const METHOD = 'POST';
-const PATH = '/wallet/get-wallet'
+const PATH = '/generate_wallet/get_wallet'
 const BODY = {
     "fields":[
         {
@@ -117,7 +109,6 @@ const createNewWallet = async () => {
             })
         });
 
-        
         const data = await response.json();
         console.log('Success:', data);
     } catch (error) {
@@ -131,17 +122,17 @@ const RESPONSE = {
     "status":"200",
     "description": "Wallet creation response",
     "body":{
-        "success": true,
-        "status": 200,
-        "message": "User profile fetched successfully.",
-        "data": {
-          "id": "<ObjectId>",
-          "email": "<user email id>",
-          "accountAddress": "<account address of users newly created wallet>",
-          "publicKey": "<public key of users newly created wallet>",
-          "privateKey": "<private key of users newly created wallet>"
-        }
-    }
+		"success": true,
+		"status": 200,
+		"message": "User profile fetched successfully.",
+		"data": {
+		  "id": "<ObjectId>",
+		  "email": "<user email id>",
+		  "accountAddress": "<account address of users newly created wallet>",
+		  "publicKey": "<public key of users newly created wallet>",
+		  "privateKey": "<private key of users newly created wallet>"
+		}
+	}
 }
 
 

@@ -1,5 +1,5 @@
 ---
-sidebar_label: 'Overview'
+sidebar_label: 'API Overview'
 custom_edit_url: null
 id: 'fuel-overview'
 
