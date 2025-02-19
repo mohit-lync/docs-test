@@ -98,38 +98,38 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
-              label: 'Tutorial',
-              to: '/docs/intro',
+              label: 'Introduction',
+              to: '/docs/lync-introduction',
             },
           ],
         },
         {
           title: 'Community',
           items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
+            // {
+            //   label: 'Stack Overflow',
+            //   href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+            // },
             {
               label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
+              href: 'https://discord.com/invite/lyncworld',
             },
             {
               label: 'X',
-              href: 'https://x.com/docusaurus',
+              href: 'https://x.com/Lyncworld',
             },
           ],
         },
         {
           title: 'More',
           items: [
-            {
-              label: 'Blog',
-              to: '/blog',
-            },
+            // {
+            //   label: 'Blog',
+            //   to: '/blog',
+            // },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/LYNC-WORLD',
             },
           ],
         },
