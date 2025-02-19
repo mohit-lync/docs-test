@@ -5,14 +5,7 @@ import ReactMarkdown from "react-markdown";
 import Tabs from "@theme/Tabs";
 import { RotateCw } from "lucide-react";
 import { cn } from "@site/src/lib/utils";
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "../ui/dialog"
+import {useColorMode} from '@docusaurus/theme-common';
 
   
 export interface CodeSample {
@@ -159,6 +152,8 @@ export const CreateNewWallet = () => {
         endPoint: API_HOST+PATH,
     
     }));
+
+	const {colorMode} = useColorMode();
     
     useEffect(()=>{
         const updatedCode = GET_SAMPLE_CODE({
@@ -362,7 +357,8 @@ export const CreateNewWallet = () => {
 							</div>
 							<button onClick={handleApiCall} disabled={fetchingResponse} 
 							className={cn(" flex items-center justify-center w-32 bg-[var(--ifm-color-primary)] border-none py-2 px-3 rounded-md text-xl cursor-pointer",
-							fetchingResponse && "brightness-50"
+								fetchingResponse && "brightness-50",
+								colorMode === 'dark' ? 'text-black' : 'text-white'
 							)}>
 							{
 								fetchingResponse ?

@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/helvetica-neue-5');
+
 /**
  * Any CSS included here will be global. The classic template
  * bundles Infima by default. Infima is a CSS framework designed to
@@ -8,6 +10,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
 
 @layer utilities {
   /* Hide scrollbar for Chrome, Safari and Opera */
@@ -21,7 +25,55 @@
   }
 }
 
-/* You can override the default Infima variables here. */
+
+:root {
+  --ifm-color-primary: #4ce589;
+  --ifm-color-primary-dark: #31e177;
+  --ifm-color-primary-darker: #24df6f;
+  --ifm-color-primary-darkest: #1bba5b;
+  --ifm-color-primary-light: #67e99b;
+  --ifm-color-primary-lighter: #74eba3;
+  --ifm-color-primary-lightest: #9cf1be;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  --ifm-font-family-base: 'Helvetica Neue', sans-serif;
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #4ce589;
+  --ifm-color-primary-dark: #31e177;
+  --ifm-color-primary-darker: #24df6f;
+  --ifm-color-primary-darkest: #1bba5b;
+  --ifm-color-primary-light: #67e99b;
+  --ifm-color-primary-lighter: #74eba3;
+  --ifm-color-primary-lightest: #9cf1be;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+
+html[data-theme='dark'] {
+  --ifm-background-color: #0e0e0e;
+  --ifm-background-surface-color: #1b1b1b;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* You can override the default Infima variables here.
 :root {
   --ifm-color-primary: #2e8555;
   --ifm-color-primary-dark: #29784c;
@@ -35,7 +87,7 @@
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
+/* [data-theme='dark'] {
   --ifm-color-primary: #25c2a0;
   --ifm-color-primary-dark: #21af90;
   --ifm-color-primary-darker: #1fa588;
@@ -44,4 +96,4 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
-}
+}  */
