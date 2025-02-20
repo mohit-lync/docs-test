@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Component, useEffect, useState } from "react";
+import { Component, useEffect, useRef, useState } from "react";
 import CodeBlock from "@theme/CodeBlock";
 import ReactMarkdown from "react-markdown";
 import Tabs from "@theme/Tabs";
@@ -148,6 +148,8 @@ export const CreateNewWallet = () => {
 	const [xApiKey,setXApiKey] = useState<any>("X_API_KEY");
 	const [network,setNetwork] = useState<any>("2");
 
+	const responseBlockRef = useRef<HTMLDivElement>(null);
+
     const [sampleCode, setSampleCode] = useState<string>(GET_SAMPLE_CODE({
         endPoint: API_HOST+PATH,
     
@@ -193,11 +195,13 @@ export const CreateNewWallet = () => {
 				},
 				
 			});
-			console.log(response.data);
+			console.log(response?.data);
+			responseBlockRef.current?.scrollIntoView({behavior:'smooth'});
 			setFetchedResponse(response.data);
 			setFetchingResponse(false);
 		} catch (error) {
-			setFetchedResponse(error.response.data);
+			setFetchedResponse(error.response?.data);
+			responseBlockRef.current?.scrollIntoView({behavior:'smooth'});
 			setFetchingResponse(false);
 			console.log(error);
 			
@@ -211,142 +215,117 @@ export const CreateNewWallet = () => {
 			
 			<div className="w-full lg:grid lg:grid-cols-2 ">
 				<div>
-					<div className="pr-5 w-full">
+					<div className="lg:pr-5 w-full">
 
-						<h3>Body</h3>
+						<h3 className="text-2xl lg:text-base">Body</h3>
 
 						
 
-						<div className="relative overflow-x-auto ">
-							<table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-								{/* <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-									<tr>
-										<th scope="col" className="px-6 py-3">
-											Product name
-										</th>
-										<th scope="col" className="px-6 py-3">
-											Color
-										</th>
-										<th scope="col" className="px-6 py-3">
-											Category
-										</th>
-										<th scope="col" className="px-6 py-3">
-											Price
-										</th>
-										<th scope="col" className="px-6 py-3">
-											Action
-										</th>
-									</tr>
-								</thead> */}
-								<tbody className="w-full table">
-									{(BODY.fields.slice(0,1)).map((field) => (<tr className="  ">
+						<div className=" ">
+							{(BODY.fields.slice(0,1)).map((field) => (<div className="border-b-0 rounded-t-[var(--ifm-global-radius)] border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
-										<td scope="row" colSpan={2} className=" flex items-center  justify-between px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-											<div>
-												<div className="flex items-center gap-2">
+								<div  className=" flex items-center   justify-between px-5 py-3  text-gray-900 whitespace-nowrap dark:text-white">
+									<div className="flex-1 flex flex-col justify-center">
+										<div className="flex items-center gap-2">
 
-													<span className="text-2xl">{field.name} </span>
-													<span className="mt-1">{field.type}</span>
-													{field.required && <span className="text-red-500 font-light mt-1">required</span>}
-												</div>
-												<span className="">
+											<span className=" font-[--ifm-font-weight-semibold]   ">{field.name} </span>
+											<span className="text-[var(--ifm-font-color-secondary)] font-light text-[75%] ">{field.type}</span>
+											{field.required && <span className="text-red-500 font-light text-[75%]">required</span>}
+										</div>
+										<ReactMarkdown  className="font-extralight text-wrap text-[80%] -mb-5">{field.description}</ReactMarkdown>
+										
+									</div>
 
-													<ReactMarkdown className="-mb-4 font-extralight">{field.description}</ReactMarkdown>
-												</span>
-											</div>
+									<input type="text" value={email} onChange={(e) => setEmail(e.target.value)}  
+										className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+									/>
+								</div>
+							</div>))}
 
-											<input type="text" value={email} onChange={(e) => setEmail(e.target.value)}  className="w-52 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  px-2 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
-										</td>
-										
-										
-										
-										
-										
-										
-									</tr>))}
-									{(BODY.fields.slice(-2,-1)).map((field) => (<tr className=" ">
+							{(BODY.fields.slice(-2,-1)).map((field) => (<div className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
-										<th scope="row" className=" flex items-center  justify-between px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+								<div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
-											<div>
+									<div className="flex-1 flex flex-col justify-center">
 
-												<div className="flex items-center gap-2">
+										<div className="flex items-center gap-2">
 
-													<span className="text-2xl">{field.name} </span>
-													<span className="mt-1">{field.type}</span>
-													{field.required && <span className="text-red-500 font-light mt-1">required</span>}
-												</div>
-												<span className="">
+											<span className=" font-[--ifm-font-weight-semibold]   ">{field.name} </span>
+											<span className="text-[var(--ifm-font-color-secondary)] font-light text-[75%] ">{field.type}</span>
+											{field.required && <span className="text-red-500 font-light text-[75%]">required</span>}
+										</div>
+										<ReactMarkdown className="font-extralight text-wrap text-[80%] -mb-5">{field.description}</ReactMarkdown>
+										
+									</div>
+									<input type="text" value={dashboardApiKey } onChange={(e) => setDashboardApiKey(e.target.value)}  
+										className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+									/>
 
-													<ReactMarkdown className="-mb-4 font-extralight text-wrap">{field.description}</ReactMarkdown>
-												</span>
-											</div>
-											<input type="text" value={dashboardApiKey } onChange={(e) => setDashboardApiKey(e.target.value)}  className="w-52 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  px-2 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+								</div>
+							</div>))}
 
-										</th>
-										
-										
-										
-										
-										
-										
-									</tr>))}
-									{(BODY.fields.slice(-1)).map((field) => (<tr className=" ">
+							{(BODY.fields.slice(-1)).map((field) => (<div className=" rounded-b-[var(--ifm-global-radius)] border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
-										<th scope="row" className=" flex items-center  justify-between px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-											<div>
+								<div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									<div className="flex-1 flex flex-col justify-center">
 
-												<div className="flex items-center gap-2">
+										<div className="flex items-center gap-2">
 
-													<span className="text-2xl">{field.name} </span>
-													<span className="mt-1">{field.type}</span>
-													{field.required && <span className="text-red-500 font-light mt-1">required</span>}
-												</div>
-												<span className="">
+											<span className=" font-[--ifm-font-weight-semibold]   ">{field.name} </span>
+											<span className="text-[var(--ifm-font-color-secondary)] font-light text-[75%] ">{field.type}</span>
+											{field.required && <span className="text-red-500 font-light text-[75%]">required</span>}
+										</div>
+										<ReactMarkdown className="font-extralight text-wrap text-[80%] -mb-5">{field.description}</ReactMarkdown>
+									</div>
 
-													<ReactMarkdown className="-mb-4 font-extralight text-wrap">{field.description}</ReactMarkdown>
-												</span>
-											</div>
+									<select onChange={(e) => setNetwork(e.target.value)} value={network} name="" id=""
+										className=" w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+									>
+										<option value="1">1 (Mainnet)</option>
+										<option value="2">2 (Testnet)</option>
+									</select>
 
-											<select onChange={(e) => setNetwork(e.target.value)} value={network} className="w-52 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  px-2 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="" id="">
-												<option value="1">1 (Mainnet)</option>
-												<option value="2">2 (Testnet)</option>
-											</select>
+								</div>
 
-										</th>
-										
-										
-										
-										
-										
-										
-									</tr>))}
-									
-								</tbody>
-							</table>
+
+
+
+
+
+							</div>))}
+							
 						</div>
-
-
-
-
-
-
-
-						
 					</div>
 					
 				</div>
-				<div className="space-y-3">
+				<div className="space-y-3 mt-10 lg:mt-0">
 					<div>
+					
+						<h3 className="text-2xl lg:text-base">Headers</h3>
+						<div className="flex items-start justify-between ">
 
-						<h3>Headers</h3>
-						<div className="flex items-start justify-between">
-
-							<div className="space-y-1 mt-1">
+							<div className="space-y-1 ">
 								<div className="gap-3 flex items-center">
-									<span className="text-2xl font-bold mb-0.5">{'x-api-key'}</span>
+									<span className="text-2xl font-bold mb-0.5 w-52">{'x-api-key'}</span>
 									
-									<input type="text" value={xApiKey } onChange={(e) => setXApiKey(e.target.value)}  className="w-52 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  px-2 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+									<input type="text" value={xApiKey } onChange={(e) => setXApiKey(e.target.value)}  
+										className="w-full py-[0.8rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+									/>
+
+									<button onClick={handleApiCall} disabled={fetchingResponse} 
+										className={cn(" flex items-center justify-center w-1/3  bg-[var(--ifm-color-primary)] border-none py-[0.4rem] px-[0.8rem] rounded-md text-lg cursor-pointer",
+											fetchingResponse && "brightness-50 py-[0.55rem]",
+											colorMode === 'dark' ? 'text-black' : 'text-white'
+										)}
+									>
+										{
+											fetchingResponse ?
+												<RotateCw className="animate-spin" />
+												:
+											'Test API'
+										}
+
+									</button>
 								</div>
 								
 								<h6 className="w-[80%] font-extralight">
@@ -355,19 +334,7 @@ export const CreateNewWallet = () => {
 								</h6>
 								
 							</div>
-							<button onClick={handleApiCall} disabled={fetchingResponse} 
-							className={cn(" flex items-center justify-center w-32 bg-[var(--ifm-color-primary)] border-none py-2 px-3 rounded-md text-xl cursor-pointer",
-								fetchingResponse && "brightness-50",
-								colorMode === 'dark' ? 'text-black' : 'text-white'
-							)}>
-							{
-								fetchingResponse ?
-									<RotateCw className="animate-spin" />
-									:
-								'Test API'
-							}
-
-							</button>
+							
 						</div>
 
 					</div>
@@ -378,7 +345,7 @@ export const CreateNewWallet = () => {
 							
 						</CodeBlock>
 					</div>
-					<div>
+					<div ref={responseBlockRef} tabIndex={-1}>
 						<h2>Response</h2>
 						<CodeBlock language="json">
 							

@@ -25,6 +25,14 @@
   }
 }
 
+.header-dashboard-link::before{
+  content: "Dashboard";
+  
+}
+.header-support-link::before{
+  content: "Support";
+  
+}
 
 :root {
   --ifm-color-primary: #4ce589;

@@ -84,11 +84,18 @@ const config: Config = {
           label: 'Docs',
         },
         // {to: '/blog', label: 'Blog', position: 'left'},
-        // {
-        //   href: 'https://github.com/facebook/docusaurus',
-        //   label: 'GitHub',
-        //   position: 'right',
-        // },
+        {
+          href: 'https://dashboard.lync.world/',
+          
+          position: 'right',
+          className: 'header-dashboard-link',
+        },
+        {
+          href: 'https://t.me/shanu_lync',
+          
+          position: 'right',
+          className: 'header-support-link',
+        },
       ],
     },
     footer: {
@@ -144,3 +151,24 @@ const config: Config = {
 };
 
 export default config;
+
+
+/*
+front page
+
+font, colors, for both light and dark themes(both needs review)
+  - ifw format SHOULD I REMOVE LIGHT THEME ONLY
+
+
+
+
+navbar contents(same as docs lync world)
+ - dashboard DONE
+ - support DONE
+ - search (algolia)
+
+
+
+
+
+*/
