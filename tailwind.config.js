@@ -14,6 +14,7 @@ module.exports = {
         sans: ['"Inter"', ...fontFamily.sans],
         jakarta: ['"Plus Jakarta Sans"', ...fontFamily.sans],
         mono: ['"Fira Code"', ...fontFamily.mono],
+        grotesk: ['"Space Grotesk"', ...fontFamily.sans],
       },
       borderRadius: {
         sm: "4px",

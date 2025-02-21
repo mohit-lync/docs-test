@@ -7,19 +7,19 @@ import tailwindPlugin from "./plugins/tailwind-config.cjs";
 
 const config: Config = {
   title: 'LYNC',
-  tagline: 'Dinosaurs are cool',
+  tagline: 'The first mobile-centric Layer 2 using Move Stack',
   favicon: 'img/lync_ico.ico',
-
+  staticDirectories: ['public', 'static'],
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://docs.lync.world',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'LYNC World', // Usually your GitHub org/user name.
+  projectName: 'docs-test', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -70,6 +70,11 @@ const config: Config = {
   themeConfig: {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
+    colorMode:{
+      defaultMode:'dark',
+      disableSwitch:true,
+      respectPrefersColorScheme:false
+    },
     navbar: {
       title: 'LYNC World',
       logo: {
