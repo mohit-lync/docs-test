@@ -53,9 +53,36 @@ function ProductFourPerLine() {
 // order: 0;
 // flex-grow: 1;
 
+/* Frame 1110166918 */
+
+// box-sizing: border-box;
+
+// /* Auto layout */
+// display: flex;
+// flex-direction: column;
+// justify-content: flex-end;
+// align-items: center;
+// padding: 24px;
+// gap: 16px;
+
+// width: 392px;
+// height: 70px;
+
+// background: rgba(0, 0, 0, 0.4);
+// border: 1px solid rgba(255, 255, 255, 0.8);
+// backdrop-filter: blur(27px);
+// /* Note: backdrop-filter has minimal browser support */
+// border-radius: 8px;
+
+// /* Inside auto layout */
+// flex: none;
+// order: 1;
+// flex-grow: 0;
+
+
 function ProductThreePerLine({text}:{text:string}) {
   return (
-    <div className='box-border w-full self-stretch lg:w-full rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-4 lg:p-  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-sm lg:text-base lg:leading-[20px] text-white text-center  '>
+    <div className='cursor-pointer transition-all duration-200 box-border w-full self-stretch lg:w-full rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] hover:bg-[rgba(0,0,0,0.4)] p-4   border-[1px] border-solid border-[rgba(255,255,255,0.25)] hover:border-[rgba(255,255,255,0.8)] font-normal text-sm lg:text-base lg:leading-[20px] text-white text-center  '>
       {text}
       
     </div>
