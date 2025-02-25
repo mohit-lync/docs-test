@@ -155,23 +155,23 @@ const config: Config = {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
-    algolia: {
-      // The application ID provided by Algolia
-      appId: '1AIQPWYE6I',
+    // algolia: {
+    //   // The application ID provided by Algolia
+    //   appId: '1AIQPWYE6I',
 
-      // Public API key: it is safe to commit it
-      apiKey: 'bb36173ab49a5686abf0ea1b148ca6f2',
+    //   // Public API key: it is safe to commit it
+    //   apiKey: 'bb36173ab49a5686abf0ea1b148ca6f2',
 
-      indexName: 'test-sable',
+    //   indexName: 'test-sable',
 
-      // Optional: see doc section below
-      contextualSearch: true,
+    //   // Optional: see doc section below
+    //   contextualSearch: true,
 
       
 
 
-      //... other Algolia params
-    },
+    //   //... other Algolia params
+    // },
   } satisfies Preset.ThemeConfig,
 };
 

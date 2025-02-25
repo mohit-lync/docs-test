@@ -12,6 +12,7 @@ import styles from './index.module.css';
 //@ts-ignore
 import pm from '@site/static/img/pm.png'
 import Head from '@docusaurus/Head';
+import SearchBarWrapper from '../theme/SearchBar';
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
@@ -217,6 +218,7 @@ export default function Home(): ReactNode {
               }}
               placeholder='Search using topics, categories, trends...'
             />
+            {/* <SearchBarWrapper/> */}
           </div>
 
           <img src="/img/home-line-seperate.png" className='lg:my-10' alt="" />
@@ -277,23 +279,23 @@ export default function Home(): ReactNode {
             
 
             <div className='flex justify-between w-full gap-2 flex-wrap  items-center '>
-              <div className='box-border w-full lg:w-1/6 h-[60px] rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-6  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-xl leading-[22px] text-white text-center  '>
+              <div className=' cursor-pointer transition-all duration-200 hover:bg-[rgba(0,0,0,0.4)] hover:border-[rgba(255,255,255,0.8)] box-border w-full lg:w-1/6 h-[60px] rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-6  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-xl leading-[22px] text-white text-center  '>
                 <img className='w-[90px]' src={'/img/aptos.png'} alt="" />
                 
               </div>
-              <div className='box-border w-full lg:w-1/6 h-[60px] rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-6  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-xl leading-[22px] text-white text-center  '>
+              <div className=' cursor-pointer transition-all duration-200 hover:bg-[rgba(0,0,0,0.4)] hover:border-[rgba(255,255,255,0.8)] box-border w-full lg:w-1/6 h-[60px] rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-6  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-xl leading-[22px] text-white text-center  '>
                 <img className='w-[140px]' src={'/img/movement.png'} alt="" />
                 
               </div>
-              <div className='box-border w-full lg:w-1/6 h-[60px] rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-6  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-xl leading-[22px] text-white text-center  '>
+              <div className=' cursor-pointer transition-all duration-200 hover:bg-[rgba(0,0,0,0.4)] hover:border-[rgba(255,255,255,0.8)] box-border w-full lg:w-1/6 h-[60px] rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-6  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-xl leading-[22px] text-white text-center  '>
                 <img className='w-[100px]' src={'/img/supra.png'} alt="" />
                 
               </div>
-              <div className='box-border w-full lg:w-1/6 h-[60px] rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-6  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-xl leading-[22px] text-white text-center  '>
+              <div className=' cursor-pointer transition-all duration-200 hover:bg-[rgba(0,0,0,0.4)] hover:border-[rgba(255,255,255,0.8)] box-border w-full lg:w-1/6 h-[60px] rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-6  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-xl leading-[22px] text-white text-center  '>
                 <img className='w-[100px]' src={'/img/fuel.png'} alt="" />
                 
               </div>
-              <div className='box-border w-full lg:w-1/6 h-[60px] rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-6  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-xl leading-[22px] text-white text-center  '>
+              <div className=' cursor-pointer transition-all duration-200 hover:bg-[rgba(0,0,0,0.4)] hover:border-[rgba(255,255,255,0.8)] box-border w-full lg:w-1/6 h-[60px] rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-6  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-xl leading-[22px] text-white text-center  '>
                 <img className='w-[100px]' src={'/img/metis.png'} alt="" />
                 
               </div>
