@@ -72,40 +72,12 @@ const BODY = {
 
             ],
 			"required":true,
-        },
-
-
-
-
-		{
-			"name":"arguments",
-			"description":"Array of objects",
-			"required":true,
-			"type":"array",
-			"field":{
-				type:"object",
-				fields:[
-					{
-						name:"argument",
-						type:"string",
-						required:true,
-						description:"The argument"
-					},
-					{
-						name:"type",
-						type:"number",
-						required:true,
-						description:"The argument"
-					}
-				]
-			}
-		}
+        }
     ]
 }
 
 type SampleCodeParams = {
     endPoint: string;
-	argumentsArray:ArgumentsArray[];
     xApiKey?: string;
     projectApiKey?: string;
     email?: string;
@@ -119,15 +91,7 @@ const getTextInSingleQuotes = (text: string) => {
 const GET_SAMPLE_CODE = (
     sampleCodeParams: SampleCodeParams
 ) => {
-    const {email,network,endPoint,projectApiKey,xApiKey,argumentsArray} = sampleCodeParams;
-
-	const getArgumentsField = () =>{
-		if(argumentsArray.length === 0)return "";
-
-		return argumentsArray.map((argument,index) => {
-            return `                    { argument: ${getTextInSingleQuotes(argument.argument)}, type: ${argument.type} }`
-        }).join(",\n")
-	}
+    const {email,network,endPoint,projectApiKey,xApiKey} = sampleCodeParams;
 
     return `const END_POINT = ${endPoint}
 const createNewWallet = async () => {
@@ -141,8 +105,7 @@ const createNewWallet = async () => {
             body: JSON.stringify({
                 email: ${ getTextInSingleQuotes(email)},
                 apiKey: ${getTextInSingleQuotes(projectApiKey) },
-                network: ${getTextInSingleQuotes(network) },
-		${argumentsArray.length!==0 ? "arguments: [ \n" + getArgumentsField() + "\n                ]" : ""}
+                network: ${getTextInSingleQuotes(network) }
             })
         });
 
@@ -172,11 +135,6 @@ const RESPONSE = {
 	}
 }
 
-type ArgumentsArray = {
-	id:number;
-	argument: string;
-    type: number;
-}
 
 export const GetAlreadyCreatedWallet = () => {
 	
@@ -184,18 +142,7 @@ export const GetAlreadyCreatedWallet = () => {
 	const [fetchedResponse,setFetchedResponse] = useState(null);
 	const [fetchingResponse,setFetchingResponse] = useState(false);
 
-	const [argumentsArray,setArgumentsArray] = useState<ArgumentsArray[]>([
-		{
-			id:0,
-			argument: "arg0",
-			type: 0,
-		},
-		{
-			id:1,
-			argument: "arg1",
-			type: 1,
-		},
-	]);
+
 	const [email,setEmail] = useState<any>("shanu@lync.world");
 	const [dashboardApiKey,setDashboardApiKey] = useState<any>("YOUR_API_KEY");
 	const [xApiKey,setXApiKey] = useState<any>("X_API_KEY");
@@ -205,22 +152,18 @@ export const GetAlreadyCreatedWallet = () => {
 
     const [sampleCode, setSampleCode] = useState<string>(GET_SAMPLE_CODE({
         endPoint: API_HOST+PATH,
-		argumentsArray
+    
     }));
-
-	
     
 	const {colorMode} = useColorMode();
 
     useEffect(()=>{
         const updatedCode = GET_SAMPLE_CODE({
             endPoint: API_HOST+PATH,
-			argumentsArray,
             xApiKey,
             projectApiKey:dashboardApiKey,
             email,
             network,
-			
         })
 
         setSampleCode(updatedCode);
@@ -229,7 +172,6 @@ export const GetAlreadyCreatedWallet = () => {
         dashboardApiKey,
         xApiKey,
         network,
-		argumentsArray
     ])
 
 	
@@ -280,7 +222,7 @@ export const GetAlreadyCreatedWallet = () => {
 						
 
 						<div className=" ">
-							{([BODY.fields[0]]).map((field) => (<div className="border-b-0 rounded-t-[var(--ifm-global-radius)] border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
+							{(BODY.fields.slice(0,1)).map((field) => (<div className="border-b-0 rounded-t-[var(--ifm-global-radius)] border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
 								<div  className=" flex items-center   justify-between px-5 py-3  text-gray-900 whitespace-nowrap dark:text-white">
 									<div className="flex-1 flex flex-col justify-center">
@@ -300,7 +242,7 @@ export const GetAlreadyCreatedWallet = () => {
 								</div>
 							</div>))}
 
-							{([BODY.fields[1]]).map((field) => (<div className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
+							{(BODY.fields.slice(-2,-1)).map((field) => (<div className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
 								<div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
@@ -322,7 +264,7 @@ export const GetAlreadyCreatedWallet = () => {
 								</div>
 							</div>))}
 
-							{([BODY.fields[2]]).map((field) => (<div className=" rounded-b-[var(--ifm-global-radius)] border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
+							{(BODY.fields.slice(-1)).map((field) => (<div className=" rounded-b-[var(--ifm-global-radius)] border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
 								<div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 									<div className="flex-1 flex flex-col justify-center">
@@ -351,112 +293,6 @@ export const GetAlreadyCreatedWallet = () => {
 
 
 							</div>))}
-
-							{([BODY.fields[3]]).map((field) => (
-								<div className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
-
-									<div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-
-										<div className="flex-1 flex flex-col justify-center">
-
-											<div className="flex items-center gap-2">
-
-												<span className=" font-[--ifm-font-weight-semibold]   ">{field.name} </span>
-												<span className="text-[var(--ifm-font-color-secondary)] font-light text-[75%] ">{field.type}</span>
-												{field.required && <span className="text-red-500 font-light text-[75%]">required</span>}
-											</div>
-											<ReactMarkdown className="font-extralight text-wrap text-[80%] -mb-5">{field.description}</ReactMarkdown>
-											
-										</div>
-
-									</div>
-									{/* <input type="text" value={dashboardApiKey } onChange={(e) => setDashboardApiKey(e.target.value)}  
-										className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
-									/> */}
-									<div className="px-5">
-										{!argumentsArray.length && <div className="rounded-t-[var(--ifm-global-radius)] p-2 border-solid border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)]">
-											No Items in array
-										</div>}
-
-										{(argumentsArray.length !== 0) && 
-											argumentsArray.map((argument,index)=>{
-
-												const handleRemoveOfItem = () =>{
-													argumentsArray.splice(index, 1);
-                                                    setArgumentsArray([...argumentsArray]);
-                                                    
-												}
-
-												return (
-													<div className={cn("px-[0.75rem] py-[0.75rem] border-solid border-[length:var(--ifm-global-border-width)] border-b-0  border-[var(--ifm-toc-border-color)]",
-														index === 0 && "rounded-t-[var(--ifm-global-radius)]"
-													)}>
-														<div>
-															<div className="px-[1rem] space-x-3  py-[0.25rem] text-[13px] rounded-t-[var(--ifm-global-radius)] border-b-0 border-solid border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)]">
-																<button onClick={handleRemoveOfItem} className="bg-transparent hover:border-solid hover:border-[length:var(--ifm-global-border-width)]  hover:border-[var(--ifm-toc-border-color)] outline-none border-none font-semibold cursor-pointer">Remove</button>
-																<span>
-																	arguments[{index}]
-																</span>
-															</div>
-															<div className="px-[1rem] py-[0.75rem] space-y-3 rounded-b-[var(--ifm-global-radius)] border-solid border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)]">
-																{field.field.fields.map((argField) => {
-																	const id = argument.id;
-																	const argFieldItem = argumentsArray.find((argField) =>{
-																		return argField.id === id;
-																	})
-																	const argFieldValue = argFieldItem[argField.name]
-
-																	const handleArgFieldValueChange = (e) =>{
-																		const newArgFieldItem = argFieldItem;
-																		newArgFieldItem[argField.name] = e.target.value;
-
-																		const newArgumentsArray = argumentsArray.slice(0,index).concat(newArgFieldItem).concat(argumentsArray.slice(index+1));
-																		setArgumentsArray(newArgumentsArray)
-																	}
-																	return (
-																		<div className="flex items-center justify-between">
-																		
-																			<div className="flex-1 flex flex-col justify-center">
-
-																				<div className="flex items-center gap-2">
-
-																					<span className=" font-[--ifm-font-weight-semibold]   ">{argField.name} </span>
-																					<span className="text-[var(--ifm-font-color-secondary)] font-light text-[75%] ">{argField.type}</span>
-																					{argField.required && <span className="text-red-500 font-light text-[75%]">required</span>}
-																				</div>
-																				<ReactMarkdown className="font-extralight text-wrap text-[80%] -mb-5">{argField.description}</ReactMarkdown>
-																				
-																			</div>
-																			<input type={argField.type} value={argFieldValue } onChange={(e) => handleArgFieldValueChange(e)}  
-																				className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
-																			/>
-																		</div>
-																	)
-																})}
-															</div>
-														</div>
-													</div>
-												)
-											})
-										
-										}
-										
-
-										<div className="rounded-b-[var(--ifm-global-radius)] px-[0.75rem] py-[0.75rem]  border-solid border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)]">
-											<button className="border-none outline-none bg-transparent cursor-pointer font-semibold" onClick={()=>setArgumentsArray([...argumentsArray,
-											{
-												id: argumentsArray.length,
-												type: 0,
-												argument:""
-											},
-												
-											])}>Add Item</button>
-
-											
-										</div>
-									</div>
-								</div>
-							))}
 							
 						</div>
 
