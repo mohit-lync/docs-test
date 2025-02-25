@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type {ReactNode} from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
@@ -10,6 +11,7 @@ import styles from './index.module.css';
 
 //@ts-ignore
 import pm from '@site/static/img/pm.png'
+import Head from '@docusaurus/Head';
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
@@ -170,7 +172,15 @@ export default function Home(): ReactNode {
       description="Description will go into a meta tag in <head />"
       
     >
-      
+      <Head>
+        <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+        <script type="text/javascript" src='/script.js'>
+
+          
+
+        </script>
+
+      </Head>
       
 
       <main className='relative'
@@ -194,6 +204,7 @@ export default function Home(): ReactNode {
 
           <div className='w-full flex items-center justify-center '>
             <input type="text" 
+              id='searcher'
               className='lg:w-[655px] w-[90%] md:w-[75%]  pl-[48px] lg:text-lg rounded-lg h-12 lg:h-16 bg-black border-[1px] border-solid border-[rgba(255,255,255,0.2)] outline-none resize-none'
               style={{
                 boxShadow: '0px 0px 0px 4px rgba(255, 255, 255, 0.1), 0px 0px 54px rgba(76, 229, 137, 0.25)',

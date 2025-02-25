@@ -44,42 +44,47 @@ export interface FormValues {
 
 const API_HOST = 'https://server-aptos-sdk.lync.world/api';
 const METHOD = 'POST';
-const PATH = '/generate_wallet/get_wallet'
+const PATH = '/unity/mint-nft'
 const BODY = {
     "fields":[
         {
-            "name":"email",
+            "name":"contractAddress",
             "type":"string",
-            "description":"User email id",
-            "example":"shanu@lync.world",
+            "description":"Contract address",
+            "example":"0x4bb424eb03c0105e44e42a07294a7c9ed78b75942549b02844892401b578d150",
 			"required":true,
         },
         {
-            "name":"apiKey",
+            "name":"contractName",
             "type":"string",
-            "description":"Your API key generated from [LYNC Dashboard](https://dashboard.lync.world/).",
-            "example":"Your Api key",
+            "description":"Name of contract",
+            "example":"LyncCards",
 			"required":true,
         },
         {
-            "name":"network",
+            "name":"functionName",
             "type":"string",
-            "description":"Network type enum (1 for Mainnet, 2 for Testnet)",
-            "example":"2",
-            "enum":[
-                "1",
-                "2"
-
-            ],
+            "description":"Function you want to do mint transaction on",
+            "example":"mint_nft",
 			"required":true,
         },
-
-
-
-
-		{
+        {
+            "name":"privateAddress",
+            "type":"string",
+            "description":"User's private key",
+            "example":"0x9e568d375d7dc88dcb58577a4167b11e559b3fed222f91383518e58f8565f353",
+			"required":true,
+        },
+        {
+            "name":"publicAddress",
+            "type":"string",
+            "description":"User's account address",
+            "example":"0x41e019155a0916372341bcdb684b6e571b68563f933c3139deae6a9fac3fc38b",
+			"required":true,
+        },
+        {
 			"name":"arguments",
-			"description":"Array of objects",
+			"description":"Object of  ```{ argument: string, type: number }``` If the function accepts any arguments",
 			"required":true,
 			"type":"array",
 			"field":{
@@ -99,7 +104,39 @@ const BODY = {
 					}
 				]
 			}
-		}
+		},
+        {
+            "name":"network",
+            "type":"number",
+            "description":"Network type enum (1 for Mainnet, 2 for Testnet)",
+            "example":2,
+            "enum":[
+                "1",
+                "2"
+
+            ],
+			"required":true,
+        },
+        {
+            "name":"usePaymaster",
+            "type":"boolean",
+            "description":"```true``` to sponsor the transaction or ```false``` if user pays for the transaction",
+            "example":"false",
+			"required":true,
+        },
+        {
+            "name":"apiKey",
+            "type":"string",
+            "description":"Your API key generated from [LYNC Dashboard](https://dashboard.lync.world/).",
+            "example":"Your Api key",
+			"required":true,
+        },
+        
+
+
+
+
+		
     ]
 }
 
@@ -108,8 +145,13 @@ type SampleCodeParams = {
 	argumentsArray:ArgumentsArray[];
     xApiKey?: string;
     projectApiKey?: string;
-    email?: string;
-    network?: string
+    contractAddress?: string;
+    contractName?: string;
+    functionName?: string;
+    privateAddress?: string;
+    publicAddress?: string;
+    network?: number;
+    usePaymaster?: boolean;
 }
 
 const getTextInSingleQuotes = (text: string) => {
@@ -119,7 +161,7 @@ const getTextInSingleQuotes = (text: string) => {
 const GET_SAMPLE_CODE = (
     sampleCodeParams: SampleCodeParams
 ) => {
-    const {email,network,endPoint,projectApiKey,xApiKey,argumentsArray} = sampleCodeParams;
+    const {contractAddress,contractName,functionName,privateAddress,publicAddress,usePaymaster,network,endPoint,projectApiKey,xApiKey,argumentsArray} = sampleCodeParams;
 
 	const getArgumentsField = () =>{
 		if(argumentsArray.length === 0)return "";
@@ -139,10 +181,15 @@ const createNewWallet = async () => {
                 'X-API-Key': ${getTextInSingleQuotes(xApiKey)}
             },
             body: JSON.stringify({
-                email: ${ getTextInSingleQuotes(email)},
-                apiKey: ${getTextInSingleQuotes(projectApiKey) },
-                network: ${getTextInSingleQuotes(network) },
-		${argumentsArray.length!==0 ? "arguments: [ \n" + getArgumentsField() + "\n                ]" : ""}
+                contractAddress: ${ getTextInSingleQuotes(contractAddress) },
+                contractName: ${ getTextInSingleQuotes(contractName)},
+                functionName: ${ getTextInSingleQuotes(functionName)},
+                privateAddress: ${ getTextInSingleQuotes(privateAddress)},
+                publicAddress: ${ getTextInSingleQuotes(publicAddress)},
+                ${argumentsArray.length!==0 ? "arguments: [ \n" + getArgumentsField() + "\n                ]" : "arguments: []"},
+                network: ${network},
+                usePaymaster: ${usePaymaster},
+                apiKey: ${getTextInSingleQuotes(projectApiKey) }
             })
         });
 
@@ -159,17 +206,13 @@ const RESPONSE = {
     "status":"200",
     "description": "Wallet creation response",
     "body":{
-		"success": true,
-		"status": 200,
-		"message": "User profile fetched successfully.",
-		"data": {
-		  "id": "<ObjectId>",
-		  "email": "<user email id>",
-		  "accountAddress": "<account address of users newly created wallet>",
-		  "publicKey": "<public key of users newly created wallet>",
-		  "privateKey": "<private key of users newly created wallet>"
-		}
-	}
+        "success": true,
+        "status": 200,
+        "message": "success",
+        "data": {
+          "transactionHash": "<transaction hash of successfull mint transaction>",
+        }
+    }
 }
 
 type ArgumentsArray = {
@@ -178,28 +221,44 @@ type ArgumentsArray = {
     type: number;
 }
 
-export const GetAlreadyCreatedWallet = () => {
+export const MintNFTTransactions = () => {
 	
 	
 	const [fetchedResponse,setFetchedResponse] = useState(null);
 	const [fetchingResponse,setFetchingResponse] = useState(false);
 
-	const [argumentsArray,setArgumentsArray] = useState<ArgumentsArray[]>([
-		{
-			id:0,
-			argument: "arg0",
-			type: 0,
-		},
-		{
-			id:1,
-			argument: "arg1",
-			type: 1,
-		},
-	]);
-	const [email,setEmail] = useState<any>("shanu@lync.world");
+
+
+
+    const [contractAddress,setContractAddress] = useState<string>(BODY.fields[0].example + '');
+    const [contractName,setContractName] = useState<string>(BODY.fields[1].example + '');
+    const [functionName,setFunctionName] = useState<string>(BODY.fields[2].example + '');
+    const [privateAddress,setPrivateAddress] = useState<string>(BODY.fields[3].example + '');
+    const [publicAddress,setPublicAddress] = useState<string>(BODY.fields[4].example + '');
+
+    
+	const [argumentsArray,setArgumentsArray] = useState<ArgumentsArray[]>([]
+        // [
+        //     {
+        //         id:0,
+        //         argument: "arg0",
+        //         type: 0,
+        //     },
+        //     {
+        //         id:1,
+        //         argument: "arg1",
+        //         type: 1,
+        //     },
+	    //]
+    );
+	const [network,setNetwork] = useState<number>(parseInt(BODY.fields[6].example + ''));
+
+    const [usingPaymaster,setUsingPaymaster] = useState<boolean>(BODY.fields[7].example === "true")
 	const [dashboardApiKey,setDashboardApiKey] = useState<any>("YOUR_API_KEY");
+
+    
 	const [xApiKey,setXApiKey] = useState<any>("X_API_KEY");
-	const [network,setNetwork] = useState<any>("2");
+	
 
 	const responseBlockRef = useRef<HTMLDivElement>(null);
 
@@ -218,18 +277,28 @@ export const GetAlreadyCreatedWallet = () => {
 			argumentsArray,
             xApiKey,
             projectApiKey:dashboardApiKey,
-            email,
+            contractAddress,
+            contractName,
+            functionName,
+            usePaymaster:usingPaymaster,
+            privateAddress,
+            publicAddress,
             network,
 			
         })
 
         setSampleCode(updatedCode);
     },[
-        email,
+        contractAddress,
+        contractName,
+        functionName,
+        privateAddress,
+        publicAddress,
+		argumentsArray,
+        network,
+        usingPaymaster,
         dashboardApiKey,
         xApiKey,
-        network,
-		argumentsArray
     ])
 
 	
@@ -240,10 +309,21 @@ export const GetAlreadyCreatedWallet = () => {
 			
 			setFetchingResponse(true);
 			const response = await axios.post(API_HOST+PATH,{
-				
-				email,
-				apiKey:dashboardApiKey,
 				network,
+				contractName,
+                contractAddress,
+                functionName,
+                privateAddress,
+                publicAddress,
+                arguments:argumentsArray.map((arg)=>{
+                    return {
+                        argument: arg.argument,
+                        type: arg.type
+                    }
+                }),
+                usePaymaster:usingPaymaster,
+				apiKey:dashboardApiKey,
+				
 				
 			},{
 				
@@ -294,7 +374,7 @@ export const GetAlreadyCreatedWallet = () => {
 										
 									</div>
 
-									<input type="text" value={email} onChange={(e) => setEmail(e.target.value)}  
+									<input type="text" value={contractAddress} onChange={(e) => setContractAddress(e.target.value)}  
 										className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									/>
 								</div>
@@ -315,16 +395,17 @@ export const GetAlreadyCreatedWallet = () => {
 										<ReactMarkdown className="font-extralight text-wrap text-[80%] -mb-5">{field.description}</ReactMarkdown>
 										
 									</div>
-									<input type="text" value={dashboardApiKey } onChange={(e) => setDashboardApiKey(e.target.value)}  
+									<input type="text" value={contractName } onChange={(e) => setContractName(e.target.value)}  
 										className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									/>
 
 								</div>
 							</div>))}
-
-							{([BODY.fields[2]]).map((field) => (<div className=" rounded-b-[var(--ifm-global-radius)] border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
+							
+							{([BODY.fields[2]]).map((field) => (<div className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
 								<div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+
 									<div className="flex-1 flex flex-col justify-center">
 
 										<div className="flex items-center gap-2">
@@ -334,25 +415,58 @@ export const GetAlreadyCreatedWallet = () => {
 											{field.required && <span className="text-red-500 font-light text-[75%]">required</span>}
 										</div>
 										<ReactMarkdown className="font-extralight text-wrap text-[80%] -mb-5">{field.description}</ReactMarkdown>
+										
 									</div>
-
-									<select onChange={(e) => setNetwork(e.target.value)} value={network} name="" id=""
-										className=" w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
-									>
-										<option value="1">1 (Mainnet)</option>
-										<option value="2">2 (Testnet)</option>
-									</select>
+									<input type="text" value={functionName } onChange={(e) => setFunctionName(e.target.value)}  
+										className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+									/>
 
 								</div>
+							</div>))}
+							{([BODY.fields[3]]).map((field) => (<div className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
+								<div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
+									<div className="flex-1 flex flex-col justify-center">
 
+										<div className="flex items-center gap-2">
 
+											<span className=" font-[--ifm-font-weight-semibold]   ">{field.name} </span>
+											<span className="text-[var(--ifm-font-color-secondary)] font-light text-[75%] ">{field.type}</span>
+											{field.required && <span className="text-red-500 font-light text-[75%]">required</span>}
+										</div>
+										<ReactMarkdown className="font-extralight text-wrap text-[80%] -mb-5">{field.description}</ReactMarkdown>
+										
+									</div>
+									<input type="text" value={privateAddress } onChange={(e) => setPrivateAddress(e.target.value)}  
+										className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+									/>
 
+								</div>
+							</div>))}
+							{([BODY.fields[4]]).map((field) => (<div className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
+								<div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+
+									<div className="flex-1 flex flex-col justify-center">
+
+										<div className="flex items-center gap-2">
+
+											<span className=" font-[--ifm-font-weight-semibold]   ">{field.name} </span>
+											<span className="text-[var(--ifm-font-color-secondary)] font-light text-[75%] ">{field.type}</span>
+											{field.required && <span className="text-red-500 font-light text-[75%]">required</span>}
+										</div>
+										<ReactMarkdown className="font-extralight text-wrap text-[80%] -mb-5">{field.description}</ReactMarkdown>
+										
+									</div>
+									<input type="text" value={publicAddress } onChange={(e) => setPublicAddress(e.target.value)}  
+										className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+									/>
+
+								</div>
 							</div>))}
 
-							{([BODY.fields[3]]).map((field) => (
+                            {([BODY.fields[5]]).map((field) => (
 								<div className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
 									<div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -373,8 +487,8 @@ export const GetAlreadyCreatedWallet = () => {
 									{/* <input type="text" value={dashboardApiKey } onChange={(e) => setDashboardApiKey(e.target.value)}  
 										className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									/> */}
-									<div className="px-5">
-										{!argumentsArray.length && <div className="rounded-t-[var(--ifm-global-radius)] p-2 border-solid border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)]">
+									<div className="px-5 pb-4">
+										{!argumentsArray.length && <div className="rounded-t-[var(--ifm-global-radius)] p-2 border-b-0 border-solid border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)]">
 											No Items in array
 										</div>}
 
@@ -457,6 +571,87 @@ export const GetAlreadyCreatedWallet = () => {
 									</div>
 								</div>
 							))}
+
+							{([BODY.fields[6]]).map((field) => (<div className="border-b-0 border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
+
+								<div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									<div className="flex-1 flex flex-col justify-center">
+
+										<div className="flex items-center gap-2">
+
+											<span className=" font-[--ifm-font-weight-semibold]   ">{field.name} </span>
+											<span className="text-[var(--ifm-font-color-secondary)] font-light text-[75%] ">{field.type}</span>
+											{field.required && <span className="text-red-500 font-light text-[75%]">required</span>}
+										</div>
+										<ReactMarkdown className="font-extralight text-wrap text-[80%] -mb-5">{field.description}</ReactMarkdown>
+									</div>
+
+									<select onChange={(e) => setNetwork(parseInt(e.target.value))} value={network} name="" id=""
+										className=" w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+									>
+										<option value="1">1 (Mainnet)</option>
+										<option value="2">2 (Testnet)</option>
+									</select>
+
+								</div>
+
+
+
+
+
+
+							</div>))}
+							{([BODY.fields[7]]).map((field) => (<div className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
+
+								<div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									<div className="flex-1 flex flex-col justify-center">
+
+										<div className="flex items-center gap-2">
+
+											<span className=" font-[--ifm-font-weight-semibold]   ">{field.name} </span>
+											<span className="text-[var(--ifm-font-color-secondary)] font-light text-[75%] ">{field.type}</span>
+											{field.required && <span className="text-red-500 font-light text-[75%]">required</span>}
+										</div>
+										<ReactMarkdown className="font-extralight text-wrap text-[80%] -mb-5">{field.description}</ReactMarkdown>
+									</div>
+
+									<select onChange={(e) => setUsingPaymaster(e.target.value === "true")} value={usingPaymaster ? "true" : "false"} name="" id=""
+										className=" w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+									>
+										<option value="true">true</option>
+										<option value="false">false</option>
+									</select>
+
+								</div>
+
+
+
+
+
+
+							</div>))}
+
+							{([BODY.fields[8]]).map((field) => (<div className="rounded-b-[var(--ifm-global-radius)]  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
+
+                                <div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+
+                                    <div className="flex-1 flex flex-col justify-center">
+
+                                        <div className="flex items-center gap-2">
+
+                                            <span className=" font-[--ifm-font-weight-semibold]   ">{field.name} </span>
+                                            <span className="text-[var(--ifm-font-color-secondary)] font-light text-[75%] ">{field.type}</span>
+                                            {field.required && <span className="text-red-500 font-light text-[75%]">required</span>}
+                                        </div>
+                                        <ReactMarkdown className="font-extralight text-wrap text-[80%] -mb-5">{field.description}</ReactMarkdown>
+                                        
+                                    </div>
+                                    <input type="text" value={dashboardApiKey } onChange={(e) => setDashboardApiKey(e.target.value)}  
+                                        className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+                                    />
+
+                                </div>
+                            </div>))}
 							
 						</div>
 

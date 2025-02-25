@@ -97,6 +97,7 @@ const sidebars: SidebarsConfig = {
                 'APTOS/wallet-apis/integration/feat/aptos-overview',
                 'APTOS/wallet-apis/integration/feat/aptos-create-wallet',
                 'APTOS/wallet-apis/integration/feat/aptos-get-created-wallet',
+                'APTOS/wallet-apis/integration/feat/aptos-mint-nft-transactions',
 
               ]
             }
@@ -106,43 +107,43 @@ const sidebars: SidebarsConfig = {
       ]
       
     },
-    // {
-    //   type: 'category',
-    //   label: 'Movement Labs',
-    //   // link:{
-    //   //   type: 'doc',
-    //   //   id:'FUEL/fuel'
-    //   // },
-    //   items:[
-    //     {
-    //       type:'category',
-    //       label:'Wallet Creation and Transaction APIs',
-    //       link:{
-    //         type: 'doc',
-    //         id:'MOVEMENT/wallet-apis/movement-wallet'
-    //       },
-    //       items:[
-    //         'MOVEMENT/wallet-apis/prerequisites/prerequisites',
-    //         {
-    //           type:'category',
-    //           label:'Integration',
-    //           link:{
-    //             type: 'doc',
-    //             id:'MOVEMENT/wallet-apis/integration/integration'
-    //           },
-    //           items:[
-    //             'MOVEMENT/wallet-apis/integration/feat/movement-overview',
-    //             'MOVEMENT/wallet-apis/integration/feat/movement-create-wallet',
-    //             'MOVEMENT/wallet-apis/integration/feat/movement-get-created-wallet',
+    {
+      type: 'category',
+      label: 'Movement Labs',
+      // link:{
+      //   type: 'doc',
+      //   id:'FUEL/fuel'
+      // },
+      items:[
+        {
+          type:'category',
+          label:'Wallet Creation and Transaction APIs',
+          link:{
+            type: 'doc',
+            id:'MOVEMENT/wallet-apis/movement-wallet'
+          },
+          items:[
+            'MOVEMENT/wallet-apis/prerequisites/prerequisites',
+            {
+              type:'category',
+              label:'Integration',
+              link:{
+                type: 'doc',
+                id:'MOVEMENT/wallet-apis/integration/integration'
+              },
+              items:[
+                'MOVEMENT/wallet-apis/integration/feat/movement-overview',
+                'MOVEMENT/wallet-apis/integration/feat/movement-create-wallet',
+                'MOVEMENT/wallet-apis/integration/feat/movement-get-created-wallet',
 
-    //           ]
-    //         }
-    //       ],
+              ]
+            }
+          ],
           
-    //     }
-    //   ]
+        }
+      ]
       
-    // },
+    },
     // {
     //   type: 'category',
     //   label: 'Tutorial',
