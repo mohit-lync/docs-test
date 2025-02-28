@@ -77,7 +77,7 @@ const BODY = {
 			"required":true,
         },
         {
-            "name":"publicAddress",
+            "name":"accountAddress",
             "type":"string",
             "description":"User's account address",
             "example":"0x758b7dba6b61226ea919480edd0e8e20624a1318593f1cb663be8968f6e6e081",
@@ -102,7 +102,12 @@ const BODY = {
 						type:"number",
 						required:true,
 						description:"The argument"
-					}
+					},
+					{
+						name:"bitSize",
+						type:"number",
+						description:"bits size"
+					},
 				]
 			}
 		},
@@ -151,7 +156,7 @@ type SampleCodeParams = {
     contractName?: string;
     functionName?: string;
     privateAddress?: string;
-    publicAddress?: string;
+    accountAddress?: string;
     network?: number;
     usePaymaster?: boolean;
 }
@@ -163,13 +168,13 @@ const getTextInSingleQuotes = (text: string) => {
 const GET_SAMPLE_CODE = (
     sampleCodeParams: SampleCodeParams
 ) => {
-    const {contractAddress,contractName,functionName,privateAddress,publicAddress,usePaymaster,network,endPoint,projectApiKey,xApiKey,argumentsArray} = sampleCodeParams;
+    const {contractAddress,contractName,functionName,privateAddress,accountAddress,usePaymaster,network,endPoint,projectApiKey,xApiKey,argumentsArray} = sampleCodeParams;
 
 	const getArgumentsField = () =>{
 		if(argumentsArray.length === 0)return "";
 
 		return argumentsArray.map((argument,index) => {
-            return `                    { argument: ${getTextInSingleQuotes(argument.argument)}, type: ${argument.type} }`
+            return `                    { argument: ${getTextInSingleQuotes(argument.argument)}, type: ${argument.type}${argument.type === '1' ? ", bitSize: " + argument.bitSize : ""} }`
         }).join(",\n")
 	}
 
@@ -187,7 +192,7 @@ const createNewWallet = async () => {
                 contractName: ${ getTextInSingleQuotes(contractName)},
                 functionName: ${ getTextInSingleQuotes(functionName)},
                 privateAddress: ${ getTextInSingleQuotes(privateAddress)},
-                publicAddress: ${ getTextInSingleQuotes(publicAddress)},
+                accountAddress: ${ getTextInSingleQuotes(accountAddress)},
                 ${argumentsArray.length!==0 ? "arguments: [ \n" + getArgumentsField() + "\n                ]" : "arguments: []"},
                 network: ${network},
                 usePaymaster: ${usePaymaster},
@@ -220,7 +225,8 @@ const RESPONSE = {
 type ArgumentsArray = {
 	id:number;
 	argument: string;
-    type: number;
+    type: string;
+	bitSize?: number;
 }
 
 export const MintNFTTransactions = () => {
@@ -236,7 +242,7 @@ export const MintNFTTransactions = () => {
     const [contractName,setContractName] = useState<string>(BODY.fields[1].example + '');
     const [functionName,setFunctionName] = useState<string>(BODY.fields[2].example + '');
     const [privateAddress,setPrivateAddress] = useState<string>(BODY.fields[3].example + '');
-    const [publicAddress,setPublicAddress] = useState<string>(BODY.fields[4].example + '');
+    const [accountAddress,setAccountAddress] = useState<string>(BODY.fields[4].example + '');
 
     
 	const [argumentsArray,setArgumentsArray] = useState<ArgumentsArray[]>([]
@@ -282,7 +288,7 @@ export const MintNFTTransactions = () => {
             functionName,
             usePaymaster:usingPaymaster,
             privateAddress,
-            publicAddress,
+            accountAddress,
             network,
 			
         })
@@ -293,7 +299,7 @@ export const MintNFTTransactions = () => {
         contractName,
         functionName,
         privateAddress,
-        publicAddress,
+        accountAddress,
 		argumentsArray,
         network,
         usingPaymaster,
@@ -314,11 +320,12 @@ export const MintNFTTransactions = () => {
                 contractAddress,
                 functionName,
                 privateAddress,
-                publicAddress,
+                accountAddress,
                 arguments:argumentsArray.map((arg)=>{
                     return {
                         argument: arg.argument,
-                        type: arg.type
+                        type: parseInt(arg.type),
+						...(arg.type === '1' && {bitSize: parseInt((arg.bitSize + ''))})
                     }
                 }),
                 usePaymaster:usingPaymaster,
@@ -459,7 +466,7 @@ export const MintNFTTransactions = () => {
 										<ReactMarkdown className="font-extralight text-wrap text-[80%] -mb-5">{field.description}</ReactMarkdown>
 										
 									</div>
-									<input type="text" value={publicAddress } onChange={(e) => setPublicAddress(e.target.value)}  
+									<input type="text" value={accountAddress } onChange={(e) => setAccountAddress(e.target.value)}  
 										className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									/>
 
@@ -513,7 +520,7 @@ export const MintNFTTransactions = () => {
 																</span>
 															</div>
 															<div className="px-[1rem] py-[0.75rem] space-y-3 rounded-b-[var(--ifm-global-radius)] border-solid border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)]">
-																{field.field.fields.map((argField) => {
+																{field.field.fields.map((argField,argIndex) => {
 																	const id = argument.id;
 																	const argFieldItem = argumentsArray.find((argField) =>{
 																		return argField.id === id;
@@ -528,7 +535,17 @@ export const MintNFTTransactions = () => {
 																		setArgumentsArray(newArgumentsArray)
 																	}
 																	return (
-																		<div className="flex items-center justify-between">
+																		<div className={cn(" items-center justify-between",
+																			argIndex === 2 
+																			?
+																				argFieldItem.type === '1'
+																				?
+																			 		"flex" 
+																				:
+																					"hidden"
+																			: 
+																				"flex"
+																		)}>
 																		
 																			<div className="flex-1 flex flex-col justify-center">
 
@@ -560,8 +577,9 @@ export const MintNFTTransactions = () => {
 											<button className="border-none outline-none bg-transparent cursor-pointer font-semibold" onClick={()=>setArgumentsArray([...argumentsArray,
 											{
 												id: argumentsArray.length,
-												type: 0,
-												argument:""
+												type: '0',
+												argument:"",
+												bitSize: 0,
 											},
 												
 											])}>Add Item</button>
