@@ -6,7 +6,7 @@ import Tabs from "@theme/Tabs";
 import { RotateCw } from "lucide-react";
 import { cn } from "@site/src/lib/utils";
 import {useColorMode} from '@docusaurus/theme-common';
-  
+import projectApiKeys from '../../../docs/configs/projectApiKeys.json'
 export interface CodeSample {
 	language: "node" | "csharp" | "python";
 	code: string;
@@ -15,7 +15,7 @@ export interface CodeSample {
 
 type ApiParam = any
 
-
+const projectApiKey = projectApiKeys.MOVEMENT
 
 
 export type ApiResponse = any
@@ -42,9 +42,9 @@ export interface FormValues {
 }
 
 
-const API_HOST = 'https://server-aptos-sdk.lync.world/api-movement';
-const METHOD = 'POST';
-const PATH = '/generate_wallet/get_wallet'
+const API_HOST = 'https://movement-sdk.lync.world/api/v1';
+const METHOD = 'GET';
+const PATH = '/wallet/get'
 const BODY = {
     "fields":[
         {
@@ -58,16 +58,16 @@ const BODY = {
             "name":"apiKey",
             "type":"string",
             "description":"Your API key generated from [LYNC Dashboard](https://dashboard.lync.world/).",
-            "example":"Your Api key",
+            "example":projectApiKey,
 			"required":true,
         },
         {
             "name":"network",
             "type":"string",
             "description":"Network type enum (1 for Mainnet, 2 for Testnet)",
-            "example":"2",
+            "example":2,
             "enum":[
-                "1",
+                // "1",
                 "2"
 
             ],
@@ -102,11 +102,6 @@ const createNewWallet = async () => {
                 'Content-Type': 'application/json',
                 'X-API-Key': ${getTextInSingleQuotes(xApiKey)}
             },
-            body: JSON.stringify({
-                email: ${ getTextInSingleQuotes(email)},
-                apiKey: ${getTextInSingleQuotes(projectApiKey) },
-                network: ${getTextInSingleQuotes(network) }
-            })
         });
 
         const data = await response.json();
@@ -144,8 +139,8 @@ export const GetAlreadyCreatedWallet = () => {
 
 
 	const [email,setEmail] = useState<any>("shanu@lync.world");
-	const [dashboardApiKey,setDashboardApiKey] = useState<any>("YOUR_API_KEY");
-	const [xApiKey,setXApiKey] = useState<any>("X_API_KEY");
+	const [dashboardApiKey,setDashboardApiKey] = useState<any>(projectApiKey);
+		const [xApiKey,setXApiKey] = useState<any>(projectApiKey);
 	const [network,setNetwork] = useState<any>("2");
 
 	const responseBlockRef = useRef<HTMLDivElement>(null);
@@ -158,8 +153,9 @@ export const GetAlreadyCreatedWallet = () => {
 	const {colorMode} = useColorMode();
 
     useEffect(()=>{
+		const queryParams = `?network=${network}&email=${email}&apiKey=${dashboardApiKey}`
         const updatedCode = GET_SAMPLE_CODE({
-            endPoint: API_HOST+PATH,
+            endPoint: API_HOST+PATH + queryParams,
             xApiKey,
             projectApiKey:dashboardApiKey,
             email,
@@ -179,15 +175,9 @@ export const GetAlreadyCreatedWallet = () => {
 
 	const handleApiCall = async() =>{
 		try {
-			
+			const queryParams = `?network=${network}&email=${email}&apiKey=${dashboardApiKey}`
 			setFetchingResponse(true);
-			const response = await axios.post(API_HOST+PATH,{
-				
-				email,
-				apiKey:dashboardApiKey,
-				network,
-				
-			},{
+			const response = await axios.get(API_HOST+PATH+queryParams,{
 				
 				headers:{
 					"Content-Type": "application/json",
@@ -278,10 +268,10 @@ export const GetAlreadyCreatedWallet = () => {
 										<ReactMarkdown className="font-extralight text-wrap text-[80%] -mb-5">{field.description}</ReactMarkdown>
 									</div>
 
-									<select onChange={(e) => setNetwork(e.target.value)} value={network} name="" id=""
+									<select onChange={(e) => setNetwork(parseInt(e.target.value))} value={network} name="" id=""
 										className=" w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									>
-										<option value="1">1 (Mainnet)</option>
+										{/* <option value="1">1 (Mainnet)</option> */}
 										<option value="2">2 (Testnet)</option>
 									</select>
 

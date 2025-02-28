@@ -6,7 +6,7 @@ import Tabs from "@theme/Tabs";
 import { RotateCw } from "lucide-react";
 import { cn } from "@site/src/lib/utils";
 import {useColorMode} from '@docusaurus/theme-common';
-  
+import projectApiKeys from '../../../docs/configs/projectApiKeys.json'
 export interface CodeSample {
 	language: "node" | "csharp" | "python";
 	code: string;
@@ -15,6 +15,7 @@ export interface CodeSample {
 
 type ApiParam = any
 
+const projectApiKey = projectApiKeys.APTOS
 
 
 
@@ -58,7 +59,7 @@ const BODY = {
             "name":"apiKey",
             "type":"string",
             "description":"Your API key generated from [LYNC Dashboard](https://dashboard.lync.world/).",
-            "example":"Your Api key",
+            "example":projectApiKey,
 			"required":true,
         },
         {
@@ -144,8 +145,8 @@ export const GetAlreadyCreatedWallet = () => {
 
 
 	const [email,setEmail] = useState<any>("shanu@lync.world");
-	const [dashboardApiKey,setDashboardApiKey] = useState<any>("YOUR_API_KEY");
-	const [xApiKey,setXApiKey] = useState<any>("X_API_KEY");
+	const [dashboardApiKey,setDashboardApiKey] = useState<any>(projectApiKey);
+	const [xApiKey,setXApiKey] = useState<any>(projectApiKey);
 	const [network,setNetwork] = useState<any>("2");
 
 	const responseBlockRef = useRef<HTMLDivElement>(null);

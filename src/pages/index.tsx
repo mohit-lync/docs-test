@@ -83,12 +83,12 @@ function ProductFourPerLine() {
 // flex-grow: 0;
 
 
-function ProductThreePerLine({text}:{text:string}) {
+function ProductThreePerLine({text,url}:{text:string,url?:string}) {
   return (
-    <div className='cursor-pointer transition-all duration-200 box-border w-full self-stretch lg:w-full rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] hover:bg-[rgba(0,0,0,0.4)] p-4   border-[1px] border-solid border-[rgba(255,255,255,0.25)] hover:border-[rgba(255,255,255,0.8)] font-normal text-sm lg:text-base lg:leading-[20px] text-white text-center  '>
+    <Link to={url} className='hover:no-underline cursor-pointer transition-all duration-200 box-border w-full self-stretch lg:w-full rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] hover:bg-[rgba(0,0,0,0.4)] p-4   border-[1px] border-solid border-[rgba(255,255,255,0.25)] hover:border-[rgba(255,255,255,0.8)] font-normal text-sm lg:text-base lg:leading-[20px] text-white text-center  '>
       {text}
       
-    </div>
+    </Link>
   )
 }
 
@@ -104,40 +104,50 @@ function ChainInfo({url}:{url:string}){
 const PRODUCTS = {
   firstLine:[
     {
-      text:'LYNC Account Abstraction SDK'
+      text:'LYNC Account Abstraction SDK',
+      url:'/docs/PRODUCTS/account-abstraction'
     },
     {
-      text:'LYNC Account Abstraction WebGL SDK'
+      text:'LYNC Account Abstraction WebGL SDK',
+      url:'/docs/PRODUCTS/account-abstraction-webgl'
     },
     {
-      text:'Metamask Wallet'
+      text:'Metamask Wallet',
+      url:'/docs/PRODUCTS/metamask-wallet'
     },
   ],
   secondLine:[
 
     {
-      text:'LYNC Metamask PC SDK'
+      text:'LYNC Metamask PC SDK',
+      url:'/docs/PRODUCTS/metamask-sdk'
     },
     {
-      text:'OKX Wallet'
+      text:'OKX Wallet',
+      url:'/docs/PRODUCTS/okx-wallet'
     },
     {
-      text:'LYNC In-Game Marketplace SDK'
+      text:'LYNC In-Game Marketplace SDK',
+      url:'/docs/PRODUCTS/in-game-marketplace'
     },
     {
-      text:'NFT Fetcher'
+      text:'NFT Fetcher',
+      url:'/docs/PRODUCTS/nft-fetcher'
     },
   ],
   thirdLine:[
 
     {
-      text:'No-code Smart Contract Deployer'
+      text:'No-code Smart Contract Deployer',
+      url:'/docs/PRODUCTS/no-code-deployer'
     },
     {
-      text:'EVM Lootbox SDK'
+      text:'EVM Lootbox SDK',
+      url:'docs/PRODUCTS/evm-lootbox-sdk'
     },
     {
-      text:'Launch you products on Telegram'
+      text:'Launch you products on Telegram',
+      url:'/docs/PRODUCTS/telegram/telegram-launch'
     },
   ]
 }
@@ -205,6 +215,9 @@ export default function Home(): ReactNode {
 
           <div className='w-full flex items-center justify-center '>
             <input type="text" 
+              onClick={() => {
+                document.getElementsByClassName('DocSearch-Button')[0].click();
+              }}
               id='searcher'
               className='lg:w-[655px] w-[90%] md:w-[75%]  pl-[48px] lg:text-lg rounded-lg h-12 lg:h-16 bg-black border-[1px] border-solid border-[rgba(255,255,255,0.2)] outline-none resize-none'
               style={{
@@ -218,7 +231,7 @@ export default function Home(): ReactNode {
               }}
               placeholder='Search using topics, categories, trends...'
             />
-            {/* <SearchBarWrapper/> */}
+            <SearchBarWrapper/>
           </div>
 
           <img src="/img/home-line-seperate.png" className='lg:my-10' alt="" />
@@ -237,21 +250,21 @@ export default function Home(): ReactNode {
             <div className='hidden lg:flex  lg:flex-row justify-between w-full gap-5   items-center '>
               {
                 PRODUCTS.firstLine.map((product, index) => (
-                  <ProductThreePerLine key={index} text={product.text} />
+                  <ProductThreePerLine key={index} text={product.text} url={product.url} />
                 ))
               }
             </div>
             <div className='hidden lg:flex justify-between gap-5 w-full   items-center '>
               {
                 PRODUCTS.secondLine.map((product, index) => (
-                  <ProductThreePerLine key={index} text={product.text} />
+                  <ProductThreePerLine key={index} text={product.text} url={product.url} />
                 ))
               }
             </div>
             <div className=' hidden lg:flex justify-between  w-full gap-5  items-center '>
               {
                 PRODUCTS.thirdLine.map((product, index) => (
-                  <ProductThreePerLine key={index} text={product.text} />
+                  <ProductThreePerLine key={index} text={product.text} url={product.url} />
                 ))
               }
             </div>
@@ -272,33 +285,33 @@ export default function Home(): ReactNode {
                 Chains
               </p>
 
-              <Link to="/docs/lync-introduction" className='font-grotesk font-medium lg:text-lg lg:leading-[19.8px]'>
+              {/* <Link to="/docs/lync-introduction" className='font-grotesk font-medium lg:text-lg lg:leading-[19.8px]'>
                 View All
-              </Link>
+              </Link> */}
             </div>
             
 
             <div className='flex justify-between w-full gap-2 flex-wrap  items-center '>
-              <div className=' cursor-pointer transition-all duration-200 hover:bg-[rgba(0,0,0,0.4)] hover:border-[rgba(255,255,255,0.8)] box-border w-full lg:w-1/6 h-[60px] rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-6  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-xl leading-[22px] text-white text-center  '>
+              <a target='_blank' href='https://aptosfoundation.org/' className=' cursor-pointer transition-all duration-200 hover:bg-[rgba(0,0,0,0.4)] hover:border-[rgba(255,255,255,0.8)] box-border w-full lg:w-1/6 h-[60px] rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-6  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-xl leading-[22px] text-white text-center  '>
                 <img className='w-[90px]' src={'/img/aptos.png'} alt="" />
                 
-              </div>
-              <div className=' cursor-pointer transition-all duration-200 hover:bg-[rgba(0,0,0,0.4)] hover:border-[rgba(255,255,255,0.8)] box-border w-full lg:w-1/6 h-[60px] rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-6  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-xl leading-[22px] text-white text-center  '>
+              </a>
+              <a target='_blank' href='https://movementlabs.xyz/' className=' cursor-pointer transition-all duration-200 hover:bg-[rgba(0,0,0,0.4)] hover:border-[rgba(255,255,255,0.8)] box-border w-full lg:w-1/6 h-[60px] rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-6  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-xl leading-[22px] text-white text-center  '>
                 <img className='w-[140px]' src={'/img/movement.png'} alt="" />
                 
-              </div>
-              <div className=' cursor-pointer transition-all duration-200 hover:bg-[rgba(0,0,0,0.4)] hover:border-[rgba(255,255,255,0.8)] box-border w-full lg:w-1/6 h-[60px] rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-6  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-xl leading-[22px] text-white text-center  '>
+              </a>
+              <a target='_blank' href='https://supra.com/' className=' cursor-pointer transition-all duration-200 hover:bg-[rgba(0,0,0,0.4)] hover:border-[rgba(255,255,255,0.8)] box-border w-full lg:w-1/6 h-[60px] rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-6  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-xl leading-[22px] text-white text-center  '>
                 <img className='w-[100px]' src={'/img/supra.png'} alt="" />
                 
-              </div>
-              <div className=' cursor-pointer transition-all duration-200 hover:bg-[rgba(0,0,0,0.4)] hover:border-[rgba(255,255,255,0.8)] box-border w-full lg:w-1/6 h-[60px] rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-6  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-xl leading-[22px] text-white text-center  '>
+              </a>
+              <a target='_blank' href='https://fuel.network/' className=' cursor-pointer transition-all duration-200 hover:bg-[rgba(0,0,0,0.4)] hover:border-[rgba(255,255,255,0.8)] box-border w-full lg:w-1/6 h-[60px] rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-6  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-xl leading-[22px] text-white text-center  '>
                 <img className='w-[100px]' src={'/img/fuel.png'} alt="" />
                 
-              </div>
-              <div className=' cursor-pointer transition-all duration-200 hover:bg-[rgba(0,0,0,0.4)] hover:border-[rgba(255,255,255,0.8)] box-border w-full lg:w-1/6 h-[60px] rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-6  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-xl leading-[22px] text-white text-center  '>
+              </a>
+              <a target='_blank' href='https://www.metis.io/' className=' cursor-pointer transition-all duration-200 hover:bg-[rgba(0,0,0,0.4)] hover:border-[rgba(255,255,255,0.8)] box-border w-full lg:w-1/6 h-[60px] rounded-lg backdrop-blur-[27px] flex items-center justify-center bg-[rgba(0,0,0,0.5)] p-6  border-[1px] border-solid border-[rgba(255,255,255,0.25)] font-normal text-xl leading-[22px] text-white text-center  '>
                 <img className='w-[100px]' src={'/img/metis.png'} alt="" />
                 
-              </div>
+              </a>
             </div>
             
           </div>

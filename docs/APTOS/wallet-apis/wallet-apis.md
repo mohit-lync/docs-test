@@ -1,5 +1,6 @@
 ---
 id: aptos-wallet
+custom_edit_url: null
 ---
 # Wallet Creation and Transaction APIs
 
