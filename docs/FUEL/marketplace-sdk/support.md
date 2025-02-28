@@ -10,5 +10,5 @@ If you encounter any issues or have any questions, feel free to reach out to our
 
 * [Telegram](https://t.me/lyncgg)
 * [Discord](https://discord.com/invite/lyncworld)
-* [Email](team@lync.world)
+* [Email](mailto:team@lync.world)
 
