@@ -43,9 +43,10 @@ export interface FormValues {
 }
 
 
-const API_HOST = ' https://server-aptos-sdk.lync.world/api-movement';
+const API_HOST = 'https://movement-sdk.lync.world/api/v1';
 const METHOD = 'POST';
-const PATH = '/generate_wallet/mint_nft'
+const PATH = '/nft/mint-nft-with-signature'
+
 const BODY = {
     "fields":[
         {
@@ -73,14 +74,14 @@ const BODY = {
             "name":"privateAddress",
             "type":"string",
             "description":"User's private key",
-            "example":"0x90bd883b359961954c59ee6a273e5f3165e606ce14fe27183aa61214d4fd8cfc",
+            "example":"0x3285afa30cc941b7870e6ab5e5e2249e36c6c1db1232abc128cc66dc9a13db26",
 			"required":true,
         },
         {
             "name":"accountAddress",
             "type":"string",
             "description":"User's account address",
-            "example":"0x758b7dba6b61226ea919480edd0e8e20624a1318593f1cb663be8968f6e6e081",
+            "example":"0x50f694bde9ac4abb60df14b69db4b17b362f64907bc5917cc24098ccd64cb2f2",
 			"required":true,
         },
         {
@@ -172,7 +173,7 @@ const GET_SAMPLE_CODE = (
         }).join(",\n")
 	}
 
-    return `const END_POINT = ${endPoint}
+    return `const END_POINT = "${endPoint}"
 const createNewWallet = async () => {
     try {
         const response = await fetch(END_POINT, {
@@ -317,7 +318,7 @@ export const MintNFTTransactions = () => {
                 arguments:argumentsArray.map((arg)=>{
                     return {
                         argument: arg.argument,
-                        type: arg.type
+                        type: parseInt(arg.type+'')
                     }
                 }),
                 usePaymaster:usingPaymaster,
@@ -680,7 +681,7 @@ export const MintNFTTransactions = () => {
 									/>
 
 									<button onClick={handleApiCall} disabled={fetchingResponse} 
-										className={cn(" flex items-center justify-center w-1/3  bg-[var(--ifm-color-primary)] border-none py-[0.4rem] px-[0.8rem] rounded-md md:text-lg cursor-pointer",
+										className={cn(" flex items-center self-stretch justify-center w-1/3  bg-[var(--ifm-color-primary)] border-none py-[0.4rem] px-[0.8rem] rounded-md md:text-lg cursor-pointer",
 											fetchingResponse && "brightness-50 py-[0.55rem]",
 											colorMode === 'dark' ? 'text-black' : 'text-white'
 										)}

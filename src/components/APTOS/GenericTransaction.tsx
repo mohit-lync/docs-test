@@ -16,8 +16,8 @@ export interface CodeSample {
 
 type ApiParam = any
 
-// 8, 16, 32, 64, 128, 256
-const projectApiKey = projectApiKeys.SUPRA
+const projectApiKey = projectApiKeys.APTOS
+
 
 export type ApiResponse = any
 
@@ -43,16 +43,16 @@ export interface FormValues {
 }
 
 
-const API_HOST = 'https://server-supra-sdk.lync.world/api/v1';
+const API_HOST = 'https://server-aptos-sdk.lync.world/api';
 const METHOD = 'POST';
-const PATH = '/nft/mint-nft'
+const PATH = '/unity/tx2'
 const BODY = {
     "fields":[
         {
             "name":"contractAddress",
             "type":"string",
             "description":"Contract address",
-            "example":"0xd170636f5bd6c77dc1ae86dea1a3cc9d45926765b8240b7c4503c684a301fa82",
+            "example":"0x4bb424eb03c0105e44e42a07294a7c9ed78b75942549b02844892401b578d150",
 			"required":true,
         },
         {
@@ -73,14 +73,14 @@ const BODY = {
             "name":"privateAddress",
             "type":"string",
             "description":"User's private key",
-            "example":"0xe060f45da28bba05896c10452936c547e2300f6de355cc90bbf570416bf80854",
+            "example":"0x9e568d375d7dc88dcb58577a4167b11e559b3fed222f91383518e58f8565f353",
 			"required":true,
         },
         {
-            "name":"accountAddress",
+            "name":"publicAddress",
             "type":"string",
             "description":"User's account address",
-            "example":"0x056be41b909678a22e92ef07ea8efaacd0fd48d76798324ae71ba9e3ecf7d492",
+            "example":"0x41e019155a0916372341bcdb684b6e571b68563f933c3139deae6a9fac3fc38b",
 			"required":true,
         },
         {
@@ -102,12 +102,7 @@ const BODY = {
 						type:"number",
 						required:true,
 						description:"The argument"
-					},
-					{
-						name:"bitSize",
-						type:"number",
-						description:"bits size"
-					},
+					}
 				]
 			}
 		},
@@ -118,8 +113,7 @@ const BODY = {
             "example":2,
             "enum":[
                 "1",
-				"2"
-                
+                "2"
 
             ],
 			"required":true,
@@ -156,7 +150,7 @@ type SampleCodeParams = {
     contractName?: string;
     functionName?: string;
     privateAddress?: string;
-    accountAddress?: string;
+    publicAddress?: string;
     network?: number;
     usePaymaster?: boolean;
 }
@@ -168,17 +162,17 @@ const getTextInSingleQuotes = (text: string) => {
 const GET_SAMPLE_CODE = (
     sampleCodeParams: SampleCodeParams
 ) => {
-    const {contractAddress,contractName,functionName,privateAddress,accountAddress,usePaymaster,network,endPoint,projectApiKey,xApiKey,argumentsArray} = sampleCodeParams;
+    const {contractAddress,contractName,functionName,privateAddress,publicAddress,usePaymaster,network,endPoint,projectApiKey,xApiKey,argumentsArray} = sampleCodeParams;
 
 	const getArgumentsField = () =>{
 		if(argumentsArray.length === 0)return "";
 
 		return argumentsArray.map((argument,index) => {
-            return `                    { argument: ${getTextInSingleQuotes(argument.argument)}, type: ${argument.type}${argument.type === '1' ? ", bitSize: " + argument.bitSize : ""} }`
+            return `                    { argument: ${getTextInSingleQuotes(argument.argument)}, type: ${argument.type} }`
         }).join(",\n")
 	}
 
-    return `const END_POINT = ${endPoint}
+    return `const END_POINT = "${endPoint}"
 const createNewWallet = async () => {
     try {
         const response = await fetch(END_POINT, {
@@ -192,7 +186,7 @@ const createNewWallet = async () => {
                 contractName: ${ getTextInSingleQuotes(contractName)},
                 functionName: ${ getTextInSingleQuotes(functionName)},
                 privateAddress: ${ getTextInSingleQuotes(privateAddress)},
-                accountAddress: ${ getTextInSingleQuotes(accountAddress)},
+                publicAddress: ${ getTextInSingleQuotes(publicAddress)},
                 ${argumentsArray.length!==0 ? "arguments: [ \n" + getArgumentsField() + "\n                ]" : "arguments: []"},
                 network: ${network},
                 usePaymaster: ${usePaymaster},
@@ -225,11 +219,10 @@ const RESPONSE = {
 type ArgumentsArray = {
 	id:number;
 	argument: string;
-    type: string;
-	bitSize?: number;
+    type: number;
 }
 
-export const MintNFTTransactions = () => {
+export const GenericTransaction = () => {
 	
 	
 	const [fetchedResponse,setFetchedResponse] = useState(null);
@@ -242,7 +235,7 @@ export const MintNFTTransactions = () => {
     const [contractName,setContractName] = useState<string>(BODY.fields[1].example + '');
     const [functionName,setFunctionName] = useState<string>(BODY.fields[2].example + '');
     const [privateAddress,setPrivateAddress] = useState<string>(BODY.fields[3].example + '');
-    const [accountAddress,setAccountAddress] = useState<string>(BODY.fields[4].example + '');
+    const [publicAddress,setPublicAddress] = useState<string>(BODY.fields[4].example + '');
 
     
 	const [argumentsArray,setArgumentsArray] = useState<ArgumentsArray[]>([]
@@ -288,7 +281,7 @@ export const MintNFTTransactions = () => {
             functionName,
             usePaymaster:usingPaymaster,
             privateAddress,
-            accountAddress,
+            publicAddress,
             network,
 			
         })
@@ -299,7 +292,7 @@ export const MintNFTTransactions = () => {
         contractName,
         functionName,
         privateAddress,
-        accountAddress,
+        publicAddress,
 		argumentsArray,
         network,
         usingPaymaster,
@@ -320,12 +313,11 @@ export const MintNFTTransactions = () => {
                 contractAddress,
                 functionName,
                 privateAddress,
-                accountAddress,
+                publicAddress,
                 arguments:argumentsArray.map((arg)=>{
                     return {
                         argument: arg.argument,
-                        type: parseInt(arg.type),
-						...(arg.type === '1' && {bitSize: parseInt((arg.bitSize + ''))})
+                        type: arg.type
                     }
                 }),
                 usePaymaster:usingPaymaster,
@@ -380,16 +372,16 @@ export const MintNFTTransactions = () => {
 										<ReactMarkdown  className="font-extralight text-wrap text-[80%] -mb-5">{field.description}</ReactMarkdown>
 										
 									</div>
-
 									<input type="text" value={contractAddress} onChange={(e) => setContractAddress(e.target.value)}  
-										className="w-full py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+										className="w-full  py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									/>
+
 								</div>
 							</div>))}
 
 							{([BODY.fields[1]]).map((field,index) => (<div key={index} className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
-								<div  className=" flex items-center flex-col gap-2  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+								<div  className=" flex items-center flex-col gap-2 justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
 									<div className="w-full flex flex-col justify-center">
 
@@ -411,7 +403,7 @@ export const MintNFTTransactions = () => {
 							
 							{([BODY.fields[2]]).map((field,index) => (<div key={index} className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
-								<div  className=" flex items-center flex-col gap-2  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+								<div  className=" flex items-center flex-col gap-2 justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
 									<div className="w-full flex flex-col justify-center">
 
@@ -466,7 +458,7 @@ export const MintNFTTransactions = () => {
 										<ReactMarkdown className="font-extralight text-wrap text-[80%] -mb-5">{field.description}</ReactMarkdown>
 										
 									</div>
-									<input type="text" value={accountAddress } onChange={(e) => setAccountAddress(e.target.value)}  
+									<input type="text" value={publicAddress } onChange={(e) => setPublicAddress(e.target.value)}  
 										className="w-full py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									/>
 
@@ -476,7 +468,7 @@ export const MintNFTTransactions = () => {
                             {([BODY.fields[5]]).map((field,index) => (
 								<div key={index} className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
-									<div  className=" flex items-center flex-col gap-2  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									<div  className=" flex items-center  flex-col gap-2 justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
 										<div className="w-full flex flex-col justify-center">
 
@@ -492,7 +484,7 @@ export const MintNFTTransactions = () => {
 
 									</div>
 									{/* <input type="text" value={dashboardApiKey } onChange={(e) => setDashboardApiKey(e.target.value)}  
-										className="w-full py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+										className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									/> */}
 									<div className="px-5 pb-4">
 										{!argumentsArray.length && <div className="rounded-t-[var(--ifm-global-radius)] p-2 border-b-0 border-solid border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)]">
@@ -520,7 +512,7 @@ export const MintNFTTransactions = () => {
 																</span>
 															</div>
 															<div className="px-[1rem] py-[0.75rem] space-y-3 rounded-b-[var(--ifm-global-radius)] border-solid border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)]">
-																{field.field.fields.map((argField,argIndex) => {
+																{field.field.fields.map((argField) => {
 																	const id = argument.id;
 																	const argFieldItem = argumentsArray.find((argField) =>{
 																		return argField.id === id;
@@ -535,17 +527,7 @@ export const MintNFTTransactions = () => {
 																		setArgumentsArray(newArgumentsArray)
 																	}
 																	return (
-																		<div key={argField.name} className={cn(" items-center flex-col gap-2 justify-between",
-																			argIndex === 2 
-																			?
-																				argFieldItem.type === '1'
-																				?
-																			 		"flex" 
-																				:
-																					"hidden"
-																			: 
-																				"flex"
-																		)}>
+																		<div key={argField.name} className="flex items-center flex-col gap-2 justify-between">
 																		
 																			<div className="w-full flex flex-col justify-center">
 
@@ -577,9 +559,8 @@ export const MintNFTTransactions = () => {
 											<button className="border-none outline-none bg-transparent cursor-pointer font-semibold" onClick={()=>setArgumentsArray([...argumentsArray,
 											{
 												id: argumentsArray.length,
-												type: '0',
-												argument:"",
-												bitSize: 0,
+												type: 0,
+												argument:""
 											},
 												
 											])}>Add Item</button>
@@ -607,7 +588,7 @@ export const MintNFTTransactions = () => {
 									<select onChange={(e) => setNetwork(parseInt(e.target.value))} value={network} name="" id=""
 										className=" w-full py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									>
-										<option value="1">1 (Mainnet)</option>
+										{/* <option value="1">1 (Mainnet)</option> */}
 										<option value="2">2 (Testnet)</option>
 									</select>
 
@@ -653,7 +634,7 @@ export const MintNFTTransactions = () => {
 
                                 <div  className=" flex items-center flex-col gap-2  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
-         	                        <div className="w-full flex flex-col justify-center">
+                                    <div className="w-full flex flex-col justify-center">
 
                                         <div className="flex items-center gap-2">
 
@@ -691,14 +672,14 @@ export const MintNFTTransactions = () => {
 
 							<div className="space-y-1 ">
 								<div className="gap-3 flex items-center">
-									<span className="md:text-2xl font-bold mb-0.5 w-52">{'x-api-key'}</span>
+									<span className="md:text-2xl font-bold mb-0.5 w-40 md:w-52">{'x-api-key'}</span>
 									
 									<input type="text" value={xApiKey } onChange={(e) => setXApiKey(e.target.value)}  
 										className="w-full py-[0.8rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									/>
 
 									<button onClick={handleApiCall} disabled={fetchingResponse} 
-										className={cn(" flex items-center self-stretch justify-center w-1/3  bg-[var(--ifm-color-primary)] border-none py-[0.4rem] px-[0.8rem] rounded-md md:text-lg cursor-pointer",
+										className={cn(" flex items-center self-stretch justify-center md:w-1/3  bg-[var(--ifm-color-primary)] border-none py-[0.4rem] px-[0.8rem] rounded-md md:text-lg cursor-pointer",
 											fetchingResponse && "brightness-50 py-[0.55rem]",
 											colorMode === 'dark' ? 'text-black' : 'text-white'
 										)}

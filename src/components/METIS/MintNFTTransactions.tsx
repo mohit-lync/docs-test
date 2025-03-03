@@ -172,7 +172,7 @@ const GET_SAMPLE_CODE = (
         }).join(",\n")
 	}
 
-    return `const END_POINT = ${endPoint}
+    return `const END_POINT = "${endPoint}"
 const createNewWallet = async () => {
     try {
         const response = await fetch(END_POINT, {
@@ -679,7 +679,7 @@ export const MintNFTTransactions = () => {
 									/>
 
 									<button onClick={handleApiCall} disabled={fetchingResponse} 
-										className={cn(" flex items-center justify-center w-1/3  bg-[var(--ifm-color-primary)] border-none py-[0.4rem] px-[0.8rem] rounded-md md:text-lg cursor-pointer",
+										className={cn(" flex items-center self-stretch justify-center w-1/3  bg-[var(--ifm-color-primary)] border-none py-[0.4rem] px-[0.8rem] rounded-md md:text-lg cursor-pointer",
 											fetchingResponse && "brightness-50 py-[0.55rem]",
 											colorMode === 'dark' ? 'text-black' : 'text-white'
 										)}

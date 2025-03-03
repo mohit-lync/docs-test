@@ -164,6 +164,7 @@ const sidebars: SidebarsConfig = {
                 'APTOS/wallet-apis/integration/feat/aptos-create-wallet',
                 'APTOS/wallet-apis/integration/feat/aptos-get-created-wallet',
                 'APTOS/wallet-apis/integration/feat/aptos-mint-nft-transactions',
+                'APTOS/wallet-apis/integration/feat/aptos-generic-transaction',
                 
               ]
             }
@@ -499,39 +500,39 @@ const sidebars: SidebarsConfig = {
     },
     
     
-    {
-      type:'category',
-      label:'METIS',
-      items:[
-        {
-          type:'category',
-          label:'Wallet Creation and Transaction APIs',
-          link:{
-            type: 'doc',
-            id:'METIS/wallet-apis/metis-wallet'
-          },
-          items:[
-            'METIS/wallet-apis/prerequisites/prerequisites',
-            {
-              type:'category',
-              label:'Integration',
-              link:{
-                type: 'doc',
-                id:'METIS/wallet-apis/integration/integration'
-              },
-              items:[
-                'METIS/wallet-apis/integration/feat/metis-overview',
-                'METIS/wallet-apis/integration/feat/metis-create-wallet',
-                'METIS/wallet-apis/integration/feat/metis-get-created-wallet',
-                'METIS/wallet-apis/integration/feat/metis-mint-nft-transactions',
+    // {
+    //   type:'category',
+    //   label:'METIS',
+    //   items:[
+    //     {
+    //       type:'category',
+    //       label:'Wallet Creation and Transaction APIs',
+    //       link:{
+    //         type: 'doc',
+    //         id:'METIS/wallet-apis/metis-wallet'
+    //       },
+    //       items:[
+    //         'METIS/wallet-apis/prerequisites/prerequisites',
+    //         {
+    //           type:'category',
+    //           label:'Integration',
+    //           link:{
+    //             type: 'doc',
+    //             id:'METIS/wallet-apis/integration/integration'
+    //           },
+    //           items:[
+    //             'METIS/wallet-apis/integration/feat/metis-overview',
+    //             'METIS/wallet-apis/integration/feat/metis-create-wallet',
+    //             'METIS/wallet-apis/integration/feat/metis-get-created-wallet',
+    //             'METIS/wallet-apis/integration/feat/metis-mint-nft-transactions',
 
-              ]
-            }
-          ],
+    //           ]
+    //         }
+    //       ],
           
-        },
-      ]
-    },
+    //     },
+    //   ]
+    // },
     {
       type:'category',
       label:'NPM PACKAGES',
