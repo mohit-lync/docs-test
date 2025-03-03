@@ -14,7 +14,7 @@ To begin using the paymaster and sponsoring transactions, you need to whitelist 
 
 <div className="flex flex-col items-center">
     <img className="w-[80%]" src="/img/MOVEMENT/paymaster/whitelist/whitelist.png"/>
-    <span className="font-bold text-[rgb(192,192,192)]">Paymaster detailss</span>
+    <span className="font-bold text-[rgb(192,192,192)]">Paymaster details</span>
 </div>
 <br/>
 

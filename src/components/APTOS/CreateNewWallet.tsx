@@ -224,10 +224,10 @@ export const CreateNewWallet = () => {
 						
 
 						<div className=" ">
-							{(BODY.fields.slice(0,1)).map((field) => (<div className="border-b-0 rounded-t-[var(--ifm-global-radius)] border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
+							{(BODY.fields.slice(0,1)).map((field,index) => (<div key={index} className="border-b-0 rounded-t-[var(--ifm-global-radius)] border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
 								<div  className=" flex items-center   justify-between px-5 py-3  text-gray-900 whitespace-nowrap dark:text-white">
-									<div className="flex-1 flex flex-col justify-center">
+									<div className="w-1/2 flex flex-col justify-center">
 										<div className="flex items-center gap-2">
 
 											<span className=" font-[--ifm-font-weight-semibold]   ">{field.name} </span>
@@ -239,16 +239,16 @@ export const CreateNewWallet = () => {
 									</div>
 
 									<input type="text" value={email} onChange={(e) => setEmail(e.target.value)}  
-										className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+										className="w-1/2 md:w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									/>
 								</div>
 							</div>))}
 
-							{(BODY.fields.slice(-2,-1)).map((field) => (<div className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
+							{(BODY.fields.slice(-2,-1)).map((field,index) => (<div key={index} className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
 								<div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
-									<div className="flex-1 flex flex-col justify-center">
+									<div className="w-1/2 flex flex-col justify-center">
 
 										<div className="flex items-center gap-2">
 
@@ -260,16 +260,16 @@ export const CreateNewWallet = () => {
 										
 									</div>
 									<input type="text" value={dashboardApiKey } onChange={(e) => setDashboardApiKey(e.target.value)}  
-										className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+										className="w-1/2 md:w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									/>
 
 								</div>
 							</div>))}
 
-							{(BODY.fields.slice(-1)).map((field) => (<div className=" rounded-b-[var(--ifm-global-radius)] border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
+							{(BODY.fields.slice(-1)).map((field,index) => (<div key={index} className=" rounded-b-[var(--ifm-global-radius)] border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
 								<div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-									<div className="flex-1 flex flex-col justify-center">
+									<div className="w-1/2 flex flex-col justify-center">
 
 										<div className="flex items-center gap-2">
 
@@ -281,7 +281,7 @@ export const CreateNewWallet = () => {
 									</div>
 
 									<select onChange={(e) => setNetwork(e.target.value)} value={network} name="" id=""
-										className=" w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+										className="w-1/2 md:w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									>
 										<option value="1">1 (Mainnet)</option>
 										<option value="2">2 (Testnet)</option>
@@ -308,14 +308,14 @@ export const CreateNewWallet = () => {
 
 							<div className="space-y-1 ">
 								<div className="gap-3 flex items-center">
-									<span className="text-2xl font-bold mb-0.5 w-52">{'x-api-key'}</span>
+									<span className="md:text-2xl font-bold mb-0.5 md:w-52">{'x-api-key'}</span>
 									
 									<input type="text" value={xApiKey } onChange={(e) => setXApiKey(e.target.value)}  
-										className="w-full py-[0.8rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+										className="md:w-full py-[0.8rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									/>
 
 									<button onClick={handleApiCall} disabled={fetchingResponse} 
-										className={cn(" flex items-center justify-center w-1/3  bg-[var(--ifm-color-primary)] border-none py-[0.4rem] px-[0.8rem] rounded-md text-lg cursor-pointer",
+										className={cn(" flex items-center justify-center md:w-1/3  bg-[var(--ifm-color-primary)] border-none py-[0.4rem] px-[0.8rem] rounded-md md:text-lg cursor-pointer",
 											fetchingResponse && "brightness-50 py-[0.55rem]",
 											colorMode === 'dark' ? 'text-black' : 'text-white'
 										)}

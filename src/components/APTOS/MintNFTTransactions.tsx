@@ -359,10 +359,10 @@ export const MintNFTTransactions = () => {
 						
 
 						<div className=" ">
-							{([BODY.fields[0]]).map((field) => (<div className="border-b-0 rounded-t-[var(--ifm-global-radius)] border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
+							{([BODY.fields[0]]).map((field,index) => (<div key={index} className="border-b-0 rounded-t-[var(--ifm-global-radius)] border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
-								<div  className=" flex items-center   justify-between px-5 py-3  text-gray-900 whitespace-nowrap dark:text-white">
-									<div className="flex-1 flex flex-col justify-center">
+								<div  className=" flex items-center flex-col gap-2  justify-between px-5 py-3  text-gray-900 whitespace-nowrap dark:text-white">
+									<div className="w-full flex flex-col justify-center">
 										<div className="flex items-center gap-2">
 
 											<span className=" font-[--ifm-font-weight-semibold]   ">{field.name} </span>
@@ -372,18 +372,18 @@ export const MintNFTTransactions = () => {
 										<ReactMarkdown  className="font-extralight text-wrap text-[80%] -mb-5">{field.description}</ReactMarkdown>
 										
 									</div>
-
 									<input type="text" value={contractAddress} onChange={(e) => setContractAddress(e.target.value)}  
-										className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+										className="w-full  py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									/>
+
 								</div>
 							</div>))}
 
-							{([BODY.fields[1]]).map((field) => (<div className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
+							{([BODY.fields[1]]).map((field,index) => (<div key={index} className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
-								<div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+								<div  className=" flex items-center flex-col gap-2 justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
-									<div className="flex-1 flex flex-col justify-center">
+									<div className="w-full flex flex-col justify-center">
 
 										<div className="flex items-center gap-2">
 
@@ -395,17 +395,17 @@ export const MintNFTTransactions = () => {
 										
 									</div>
 									<input type="text" value={contractName } onChange={(e) => setContractName(e.target.value)}  
-										className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+										className="w-full py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									/>
 
 								</div>
 							</div>))}
 							
-							{([BODY.fields[2]]).map((field) => (<div className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
+							{([BODY.fields[2]]).map((field,index) => (<div key={index} className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
-								<div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+								<div  className=" flex items-center flex-col gap-2 justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
-									<div className="flex-1 flex flex-col justify-center">
+									<div className="w-full flex flex-col justify-center">
 
 										<div className="flex items-center gap-2">
 
@@ -417,16 +417,16 @@ export const MintNFTTransactions = () => {
 										
 									</div>
 									<input type="text" value={functionName } onChange={(e) => setFunctionName(e.target.value)}  
-										className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+										className="w-full py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									/>
 
 								</div>
 							</div>))}
-							{([BODY.fields[3]]).map((field) => (<div className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
+							{([BODY.fields[3]]).map((field,index) => (<div key={index} className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
-								<div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+								<div  className=" flex items-center flex-col gap-2  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
-									<div className="flex-1 flex flex-col justify-center">
+									<div className="w-full flex flex-col justify-center">
 
 										<div className="flex items-center gap-2">
 
@@ -438,16 +438,16 @@ export const MintNFTTransactions = () => {
 										
 									</div>
 									<input type="text" value={privateAddress } onChange={(e) => setPrivateAddress(e.target.value)}  
-										className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+										className="w-full py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									/>
 
 								</div>
 							</div>))}
-							{([BODY.fields[4]]).map((field) => (<div className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
+							{([BODY.fields[4]]).map((field,index) => (<div key={index} className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
-								<div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+								<div  className=" flex items-center flex-col gap-2  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
-									<div className="flex-1 flex flex-col justify-center">
+									<div className="w-full flex flex-col justify-center">
 
 										<div className="flex items-center gap-2">
 
@@ -459,18 +459,18 @@ export const MintNFTTransactions = () => {
 										
 									</div>
 									<input type="text" value={publicAddress } onChange={(e) => setPublicAddress(e.target.value)}  
-										className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+										className="w-full py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									/>
 
 								</div>
 							</div>))}
 
-                            {([BODY.fields[5]]).map((field) => (
-								<div className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
+                            {([BODY.fields[5]]).map((field,index) => (
+								<div key={index} className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
-									<div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									<div  className=" flex items-center  flex-col gap-2 justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
-										<div className="flex-1 flex flex-col justify-center">
+										<div className="w-full flex flex-col justify-center">
 
 											<div className="flex items-center gap-2">
 
@@ -501,7 +501,7 @@ export const MintNFTTransactions = () => {
 												}
 
 												return (
-													<div className={cn("px-[0.75rem] py-[0.75rem] border-solid border-[length:var(--ifm-global-border-width)] border-b-0  border-[var(--ifm-toc-border-color)]",
+													<div key={Math.random()} className={cn("px-[0.75rem] py-[0.75rem] border-solid border-[length:var(--ifm-global-border-width)] border-b-0  border-[var(--ifm-toc-border-color)]",
 														index === 0 && "rounded-t-[var(--ifm-global-radius)]"
 													)}>
 														<div>
@@ -527,9 +527,9 @@ export const MintNFTTransactions = () => {
 																		setArgumentsArray(newArgumentsArray)
 																	}
 																	return (
-																		<div className="flex items-center justify-between">
+																		<div key={argField.name} className="flex items-center flex-col gap-2 justify-between">
 																		
-																			<div className="flex-1 flex flex-col justify-center">
+																			<div className="w-full flex flex-col justify-center">
 
 																				<div className="flex items-center gap-2">
 
@@ -541,7 +541,7 @@ export const MintNFTTransactions = () => {
 																				
 																			</div>
 																			<input type={argField.type} value={argFieldValue } onChange={(e) => handleArgFieldValueChange(e)}  
-																				className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+																				className="w-full py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 																			/>
 																		</div>
 																	)
@@ -571,10 +571,10 @@ export const MintNFTTransactions = () => {
 								</div>
 							))}
 
-							{([BODY.fields[6]]).map((field) => (<div className="border-b-0 border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
+							{([BODY.fields[6]]).map((field,index) => (<div key={index} className="border-b-0 border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
-								<div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-									<div className="flex-1 flex flex-col justify-center">
+								<div  className=" flex items-center flex-col gap-2 justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									<div className="w-full flex flex-col justify-center">
 
 										<div className="flex items-center gap-2">
 
@@ -586,9 +586,9 @@ export const MintNFTTransactions = () => {
 									</div>
 
 									<select onChange={(e) => setNetwork(parseInt(e.target.value))} value={network} name="" id=""
-										className=" w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+										className=" w-full py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									>
-										<option value="1">1 (Mainnet)</option>
+										{/* <option value="1">1 (Mainnet)</option> */}
 										<option value="2">2 (Testnet)</option>
 									</select>
 
@@ -600,10 +600,10 @@ export const MintNFTTransactions = () => {
 
 
 							</div>))}
-							{([BODY.fields[7]]).map((field) => (<div className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
+							{([BODY.fields[7]]).map((field,index) => (<div key={index} className="border-b-0  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
-								<div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-									<div className="flex-1 flex flex-col justify-center">
+								<div  className=" flex items-center flex-col gap-2 justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+									<div className="w-full flex flex-col justify-center">
 
 										<div className="flex items-center gap-2">
 
@@ -615,7 +615,7 @@ export const MintNFTTransactions = () => {
 									</div>
 
 									<select onChange={(e) => setUsingPaymaster(e.target.value === "true")} value={usingPaymaster ? "true" : "false"} name="" id=""
-										className=" w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+										className=" w-full py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									>
 										<option value="true">true</option>
 										<option value="false">false</option>
@@ -630,11 +630,11 @@ export const MintNFTTransactions = () => {
 
 							</div>))}
 
-							{([BODY.fields[8]]).map((field) => (<div className="rounded-b-[var(--ifm-global-radius)]  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
+							{([BODY.fields[8]]).map((field,index) => (<div key={index} className="rounded-b-[var(--ifm-global-radius)]  border-[length:var(--ifm-global-border-width)]  border-[var(--ifm-toc-border-color)] border-solid ">
 
-                                <div  className=" flex items-center  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <div  className=" flex items-center flex-col gap-2  justify-between px-5 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
-                                    <div className="flex-1 flex flex-col justify-center">
+                                    <div className="w-full flex flex-col justify-center">
 
                                         <div className="flex items-center gap-2">
 
@@ -646,7 +646,7 @@ export const MintNFTTransactions = () => {
                                         
                                     </div>
                                     <input type="text" value={dashboardApiKey } onChange={(e) => setDashboardApiKey(e.target.value)}  
-                                        className="w-48 py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
+                                        className="w-full py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
                                     />
 
                                 </div>
@@ -672,14 +672,14 @@ export const MintNFTTransactions = () => {
 
 							<div className="space-y-1 ">
 								<div className="gap-3 flex items-center">
-									<span className="text-2xl font-bold mb-0.5 w-52">{'x-api-key'}</span>
+									<span className="md:text-2xl font-bold mb-0.5 w-40 md:w-52">{'x-api-key'}</span>
 									
 									<input type="text" value={xApiKey } onChange={(e) => setXApiKey(e.target.value)}  
 										className="w-full py-[0.8rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									/>
 
 									<button onClick={handleApiCall} disabled={fetchingResponse} 
-										className={cn(" flex items-center justify-center w-1/3  bg-[var(--ifm-color-primary)] border-none py-[0.4rem] px-[0.8rem] rounded-md text-lg cursor-pointer",
+										className={cn(" flex items-center justify-center md:w-1/3  bg-[var(--ifm-color-primary)] border-none py-[0.4rem] px-[0.8rem] rounded-md md:text-lg cursor-pointer",
 											fetchingResponse && "brightness-50 py-[0.55rem]",
 											colorMode === 'dark' ? 'text-black' : 'text-white'
 										)}

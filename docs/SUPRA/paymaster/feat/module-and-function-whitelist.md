@@ -1,6 +1,6 @@
 ---
 sidebar_label: 'Module & Function Whitelist'
-id: aptos-paymaster-module-and-function-whitelist
+id: supra-paymaster-module-and-function-whitelist
 custom_edit_url: null
 ---
 # Module & Function Whitelist
@@ -13,7 +13,7 @@ To begin using the paymaster and sponsoring transactions, you need to whitelist 
 
 
 <div className="flex flex-col items-center">
-    <img src="/img/APTOS/paymaster/module-whitelist.png"/>
+    <img className="w-[60%]" src="/img/SUPRA/paymaster/whitelist/whitelist.png"/>
     <span className="font-bold text-[rgb(192,192,192)]">Paymaster details</span>
 </div>
 <br/>
@@ -24,7 +24,7 @@ To begin using the paymaster and sponsoring transactions, you need to whitelist 
 * You can whitelist those methods which you want paymaster to sponsor the transactions for.
 
 <div className="flex flex-col items-center">
-    <img src="/img/APTOS/paymaster/module-whitelist-1.png"/>
+    <img className="w-[80%]" src="/img/SUPRA/paymaster/whitelist/whitelist-1.png"/>
     <span className="font-bold text-[rgb(192,192,192)]">Module & Function Whitelist</span>
 </div>
 <br/>
@@ -32,7 +32,7 @@ To begin using the paymaster and sponsoring transactions, you need to whitelist 
 Once done, you can see the list of all the contracts with Module & Function Whitelist
 
 <div className="flex flex-col items-center">
-    <img src="/img/APTOS/paymaster/module-whitelist-1.png"/>
+    <img className="w-[80%]" src="/img/SUPRA/paymaster/whitelist/whitelist-2.png"/>
     <span className="font-bold text-[rgb(192,192,192)]">List of contracts</span>
 </div>
 <br/>

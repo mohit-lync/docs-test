@@ -24,7 +24,7 @@ Please get your API key before downloading the SDK from [here](https://www.lync.
 ### Installation
 Download the LYNC Unity Movement SDK from [Here​](https://github.com/LYNC-WORLD/LYNC-Unity-Movement-SDK)
 
-<!-- Example Project: https://github.com/LYNC-WORLD/LYNC-Unity-Aptos-SDK​ -->
+Example Project: https://github.com/LYNC-WORLD/LYNC-Unity-Movement-SDK
 
 Import the SDK .unitypackage file to your project. or simply drag and drop .unitypackage file to your project.
 

@@ -310,6 +310,28 @@ const sidebars: SidebarsConfig = {
       label: 'SUPRA',
       
       items:[
+        {
+          type:'category',
+          label:'LYNC Paymaster - Supporting Supra L1',
+          link:{
+            type: 'doc',
+            id:'SUPRA/paymaster/supra-paymaster'
+          },
+          items:[
+            'SUPRA/paymaster/feat/supra-paymaster-register-on-dashboard',
+            'SUPRA/paymaster/feat/supra-paymaster-create-paymaster',
+            'SUPRA/paymaster/feat/supra-paymaster-fund-paymaster',
+            'SUPRA/paymaster/feat/supra-paymaster-module-and-function-whitelist',
+            {
+              type: "category",
+              label: "How to Integrate Paymaster",
+              items: [
+                'SUPRA/paymaster/feat/integration/supra-paymaster-integration-js-ts',
+              ],
+            },
+            
+          ]
+        },
         'SUPRA/unity-sdk/supra-unity-sdk',
         {
           type:'category',
@@ -477,39 +499,39 @@ const sidebars: SidebarsConfig = {
     },
     
     
-    // {
-    //   type:'category',
-    //   label:'METIS',
-    //   items:[
-    //     {
-    //       type:'category',
-    //       label:'Wallet Creation and Transaction APIs',
-    //       link:{
-    //         type: 'doc',
-    //         id:'METIS/wallet-apis/metis-wallet'
-    //       },
-    //       items:[
-    //         'METIS/wallet-apis/prerequisites/prerequisites',
-    //         {
-    //           type:'category',
-    //           label:'Integration',
-    //           link:{
-    //             type: 'doc',
-    //             id:'METIS/wallet-apis/integration/integration'
-    //           },
-    //           items:[
-    //             'METIS/wallet-apis/integration/feat/metis-overview',
-    //             'METIS/wallet-apis/integration/feat/metis-create-wallet',
-    //             'METIS/wallet-apis/integration/feat/metis-get-created-wallet',
-    //             'METIS/wallet-apis/integration/feat/metis-mint-nft-transactions',
+    {
+      type:'category',
+      label:'METIS',
+      items:[
+        {
+          type:'category',
+          label:'Wallet Creation and Transaction APIs',
+          link:{
+            type: 'doc',
+            id:'METIS/wallet-apis/metis-wallet'
+          },
+          items:[
+            'METIS/wallet-apis/prerequisites/prerequisites',
+            {
+              type:'category',
+              label:'Integration',
+              link:{
+                type: 'doc',
+                id:'METIS/wallet-apis/integration/integration'
+              },
+              items:[
+                'METIS/wallet-apis/integration/feat/metis-overview',
+                'METIS/wallet-apis/integration/feat/metis-create-wallet',
+                'METIS/wallet-apis/integration/feat/metis-get-created-wallet',
+                'METIS/wallet-apis/integration/feat/metis-mint-nft-transactions',
 
-    //           ]
-    //         }
-    //       ],
+              ]
+            }
+          ],
           
-    //     },
-    //   ]
-    // },
+        },
+      ]
+    },
     {
       type:'category',
       label:'NPM PACKAGES',
