@@ -45,28 +45,28 @@ export interface FormValues {
 
 const API_HOST = 'https://server-aptos-sdk.lync.world/api';
 const METHOD = 'POST';
-const PATH = '/unity/tx2'
+const PATH = '/unity/txn2'
 const BODY = {
     "fields":[
         {
             "name":"contractAddress",
             "type":"string",
             "description":"Contract address",
-            "example":"0x4bb424eb03c0105e44e42a07294a7c9ed78b75942549b02844892401b578d150",
+            "example":"0xff4b3a5a917066edefce37015b3ff847407d21f7576c70f9f077869ace805984",
 			"required":true,
         },
         {
             "name":"contractName",
             "type":"string",
             "description":"Name of contract",
-            "example":"LyncCards",
+            "example":"tst_unity",
 			"required":true,
         },
         {
             "name":"functionName",
             "type":"string",
             "description":"Function you want to do mint transaction on",
-            "example":"mint_nft",
+            "example":"set_data_bool",
 			"required":true,
         },
         {
