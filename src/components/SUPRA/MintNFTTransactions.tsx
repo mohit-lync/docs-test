@@ -52,7 +52,7 @@ const BODY = {
             "name":"contractAddress",
             "type":"string",
             "description":"Contract address",
-            "example":"0xd170636f5bd6c77dc1ae86dea1a3cc9d45926765b8240b7c4503c684a301fa82",
+            "example":"0x53aecc8dd6147b74265aaa32e51fead28b2bd84f8e03fa51a96299a598096813",
 			"required":true,
         },
         {
@@ -73,14 +73,14 @@ const BODY = {
             "name":"privateAddress",
             "type":"string",
             "description":"User's private key",
-            "example":"0xe060f45da28bba05896c10452936c547e2300f6de355cc90bbf570416bf80854",
+            "example":"0xfdcdd12194e4ad7ae65c96841d092437670e17912d9a3955258caeca4c5c248f",
 			"required":true,
         },
         {
             "name":"accountAddress",
             "type":"string",
             "description":"User's account address",
-            "example":"0x056be41b909678a22e92ef07ea8efaacd0fd48d76798324ae71ba9e3ecf7d492",
+            "example":"0xb6e3c3512dc80144cfaacf286613c8c93b1dbcbc0e369d0a6bf102e123e267e6",
 			"required":true,
         },
         {
@@ -128,7 +128,7 @@ const BODY = {
             "name":"usePaymaster",
             "type":"boolean",
             "description":"```true``` to sponsor the transaction or ```false``` if user pays for the transaction",
-            "example":"false",
+            "example":"true",
 			"required":true,
         },
         {
@@ -245,19 +245,21 @@ export const MintNFTTransactions = () => {
     const [accountAddress,setAccountAddress] = useState<string>(BODY.fields[4].example + '');
 
     
-	const [argumentsArray,setArgumentsArray] = useState<ArgumentsArray[]>([]
-        // [
-        //     {
-        //         id:0,
-        //         argument: "arg0",
-        //         type: 0,
-        //     },
-        //     {
-        //         id:1,
-        //         argument: "arg1",
-        //         type: 1,
-        //     },
-	    //]
+	const [argumentsArray,setArgumentsArray] = useState<ArgumentsArray[]>(
+        [
+            {
+				id:0,
+				"argument": "1",
+				"type": "1",
+				"bitSize":64
+			},
+			{
+				id:1,
+				"argument": "1",
+				"type": "1",
+				"bitSize":64
+			}
+	    ]
     );
 	const [network,setNetwork] = useState<number>(parseInt(BODY.fields[6].example + ''));
 
@@ -607,7 +609,7 @@ export const MintNFTTransactions = () => {
 									<select onChange={(e) => setNetwork(parseInt(e.target.value))} value={network} name="" id=""
 										className=" w-full py-[0.6rem] px-[0.8rem] outline-none rounded-[var(--ifm-global-radius)] resize-none  border-[length:var(--ifm-global-border-width)] border-[var(--ifm-toc-border-color)] border-solid"
 									>
-										<option value="1">1 (Mainnet)</option>
+										{/* <option value="1">1 (Mainnet)</option> */}
 										<option value="2">2 (Testnet)</option>
 									</select>
 
